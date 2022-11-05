@@ -1,6 +1,6 @@
 ﻿namespace DAL.Models
 {
-    public class Author<T>: Model<T>
+    public class Author: Model<int>
     {
         public string FirstName { get; set; }
 

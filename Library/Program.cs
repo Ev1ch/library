@@ -11,13 +11,13 @@ namespace Library
        public static void Main()
         {
             IServiceCollection services = new ServiceCollection();
-            services.SetRepositories();
-            services.SetServices();
-            services.SetPages();
+            services.SetDalDependencies();
+            services.SetBllDependencies();
+            services.SetPlDependencies();
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            Client client = serviceProvider.GetRequiredService<Client>();
+            Frontend client = serviceProvider.GetRequiredService<Frontend>();
             client.Start();
         }
     }

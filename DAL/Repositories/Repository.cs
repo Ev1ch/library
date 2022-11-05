@@ -5,7 +5,7 @@ using DAL.Repositories.Abstracts;
 
 namespace DAL.Repositories
 {
-    internal class Repository<T, K>:  IRepository<T, K> where T : Entity<K>
+    internal class Repository<T, K> : IRepository<T, K> where T : Entity
     {
         protected readonly Context context;
 
@@ -39,12 +39,22 @@ namespace DAL.Repositories
 
         public T? GetById(K id)
         {
-            return entities.Find(id);
+            return entities.Where(entity => entity.Id.Equals(id)).Single();
         }
 
         public IEnumerable<T> GetAll()
         {
             return entities.AsNoTracking();
+        }
+
+        public T? GetFirst()
+        {
+            return entities.First();
+        }
+
+        public T? GetOne(Func<T, bool> checker)
+        {
+            return entities.First(checker);
         }
     }
 }

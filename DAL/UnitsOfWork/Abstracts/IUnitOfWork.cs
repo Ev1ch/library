@@ -12,6 +12,8 @@ namespace DAL.UnitsOfWork.Abstracts
 
         public IGenresRepository GenresRepository { get; set; }
 
+        public IFormsRepository FormsRepository { get; set; }
+
         public void Save();
     }
 }

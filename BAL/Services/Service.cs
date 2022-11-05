@@ -1,5 +1,4 @@
-﻿using BAL.Services.Abstracts;
-using DAL.UnitsOfWork.Abstracts;
+﻿using DAL.UnitsOfWork.Abstracts;
 
 namespace BAL.Services
 {

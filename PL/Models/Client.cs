@@ -1,6 +1,6 @@
-﻿namespace DAL.Entities
+﻿namespace PL.Models
 {
-    public class User : Entity
+    public class Client : Model<int>
     {
         public string FirstName { get; set; }
 
@@ -8,8 +8,6 @@
 
         public string LastName { get; set; }
 
-        public string? Email { get; set; }
-
-        public string? Phone { get; set; }
+        public Form Form { get; set; }
     }
 }

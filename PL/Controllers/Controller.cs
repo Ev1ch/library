@@ -1,6 +1,6 @@
-﻿namespace PL.Pages
+﻿namespace PL.Controllers
 {
-    public class Page
+    public class Controller
     {
         protected string GetCommand()
         {

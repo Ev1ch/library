@@ -1,6 +1,6 @@
 ﻿namespace DAL.Entities
 {
-    public class Genre: Entity<int>
+    public class Genre: Entity
     {
         public string Name { get; set; }
 

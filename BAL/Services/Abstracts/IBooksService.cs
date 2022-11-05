@@ -2,14 +2,16 @@
 
 namespace BAL.Services.Abstracts
 {
-    public interface IBooksService<T>
+    public interface IBooksService
     {
-        public void Add(Book<T> book);
+        public void Add(Book book);
 
-        public IEnumerable<Book<T>> GetByAuthor(string author);
+        public IEnumerable<Book> GetByAuthor(string author);
 
-        public IEnumerable<Book<T>> GetByName(string name);
+        public IEnumerable<Book> GetByName(string name);
 
-        public IEnumerable<Book<T>> GetByGenre(string genre);
+        public IEnumerable<Book> GetByGenre(string genre);
+
+        public Book? GetById(int id);
     }
 }

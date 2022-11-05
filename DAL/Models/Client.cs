@@ -1,6 +1,7 @@
 ﻿namespace DAL.Models
 {
-    public class Client<T>: User<T>
+    public class Client: User<int>
     {
+        public Form Form;
     }
-}
+}  

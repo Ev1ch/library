@@ -15,13 +15,16 @@ namespace DAL.UnitsOfWork
 
         public IGenresRepository GenresRepository { get; set; }
 
-        public UnitOfWork(Context context, IAuthorsRepository authorsRepository, IBooksRepository booksRepository, IClientsRepository clientsRepository, IGenresRepository genresRepository)
+        public IFormsRepository FormsRepository { get; set; }
+
+        public UnitOfWork(Context context, IAuthorsRepository authorsRepository, IBooksRepository booksRepository, IClientsRepository clientsRepository, IGenresRepository genresRepository, IFormsRepository formsRepository)
         {
             this.context = context;
             AuthorsRepository = authorsRepository;
             BooksRepository = booksRepository;
             ClientsRepository = clientsRepository;
             GenresRepository = genresRepository;
+            FormsRepository = formsRepository;
         }
 
         public void Save()

@@ -2,10 +2,18 @@
 
 namespace BAL.Services.Abstracts
 {
-    public interface IClientsService<T>
+    public interface IClientsService
     {
-        public void Add(Client<T> client);
+        public void Add(Client client);
 
-        public void Delete(Client<T> client);
+        public void Delete(Client client);
+
+        public Client? GetById(int id);
+
+        public Client? GetByFormId(int id);
+
+        public void DeleteBookFromForm(Client client, Book book);
+
+        public void AddBookToForm(Client client, Book book);
     }
 }

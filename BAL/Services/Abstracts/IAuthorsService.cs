@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using DAL.Models;
+﻿using DAL.Models;
 
 namespace BAL.Services.Abstracts
 {
-    public interface IAuthorsService<T>
+    public interface IAuthorsService
     {
     }
 }

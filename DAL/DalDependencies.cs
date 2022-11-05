@@ -7,15 +7,16 @@ using DAL.UnitsOfWork;
 
 namespace DAL
 {
-    public static class Data
+    public static class DalDependencies
     {
-        public static IServiceCollection SetRepositories(this IServiceCollection services)
+        public static IServiceCollection SetDalDependencies(this IServiceCollection services)
         {
             services.AddScoped<Context>();
             services.AddScoped<IAuthorsRepository, AuthorsRepository>();
             services.AddScoped<IBooksRepository, BooksRepository>();
             services.AddScoped<IClientsRepository, ClientsRepository>();
             services.AddScoped<IGenresRepository, GenresRepository>();
+            services.AddScoped<IFormsRepository, FormsRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

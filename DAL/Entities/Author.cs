@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DAL.Entities
+﻿namespace DAL.Entities
 {
-    public class Author : Entity<int>
+    public class Author : Entity
     {
         public string FirstName { get; set; }
 

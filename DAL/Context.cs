@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using DAL.Entities;
-using System.Reflection.Metadata;
 
 namespace DAL
 {
-    internal class Context: DbContext
+    internal class Context : DbContext
     {
         public Context()
         {
@@ -21,6 +20,8 @@ namespace DAL
 
         public virtual DbSet<Genre> Genres { get; set; }
 
+        public virtual DbSet<Form> Forms { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=library;Trusted_Connection=True;");
@@ -29,24 +30,24 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Author>()
-                .Property(b => b.CreateAt)
+                .Property(entity => entity.CreateAt)
                 .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<Book>()
-                .Property(b => b.CreateAt)
+                .Property(entity => entity.CreateAt)
                 .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<Client>()
-                .Property(b => b.CreateAt)
+                .Property(entity => entity.CreateAt)
                 .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<Genre>()
-                .Property(b => b.CreateAt)
+                .Property(entity => entity.CreateAt)
                 .HasDefaultValueSql("getdate()");
 
-            //modelBuilder.Entity<Author>()
-              //  .Property(b => b.FullName)
-                //.HasDefaultValueSql("[FirstName] + ' ' + [MiddleName] + ' ' + [LastName]");
+            modelBuilder.Entity<Form>()
+                .Property(entity => entity.CreateAt)
+                .HasDefaultValueSql("getdate()");
         }
     }
 }
