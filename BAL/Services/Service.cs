@@ -1,14 +1,19 @@
-﻿using DAL.UnitsOfWork.Abstracts;
+﻿using AutoMapper;
+using DAL.UnitsOfWork.Abstracts;
 
 namespace BAL.Services
 {
-    internal class Service
+    public class Service
     {
         protected readonly IUnitOfWork unitOfWork;
 
-        public Service(IUnitOfWork unitOfWork)
+        protected IMapper mapper;
+
+        public Service(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
+            this.mapper = new Mapper(new MapperConfiguration(BllDependencies.Configure));
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿@model Client
+@{
+    ViewData["Title"] = "Client";
+}
+
+<div class="text-center">
+    <h1>@Model.FirstName @Model.LastName</h1>
+
+    <ul>
+        @foreach (var book in Model.Form.Books)
+        {
+            <li class="d-flex">
+                @book.Name, @book.Author.FirstName @book.Author.FirstName
+                <form method="post" action="/clients/@Model.Id/form/@book.Id">
+                    <button>Delete</button>
+                </form>
+            </li>
+        }
+    </ul>
+</div>

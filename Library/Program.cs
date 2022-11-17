@@ -17,7 +17,7 @@ namespace Library
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            Frontend client = serviceProvider.GetRequiredService<Frontend>();
+            Startup client = serviceProvider.GetRequiredService<Startup>();
             client.Start();
         }
     }

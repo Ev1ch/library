@@ -9,9 +9,9 @@ namespace PL.Controllers
 
         private readonly ClientsController clientsController;
 
-        public MainController(BooksController booksPage, ClientsController clientsController)
+        public MainController(BooksController booksController, ClientsController clientsController)
         {
-            this.booksController = booksPage;
+            this.booksController = booksController;
             this.clientsController = clientsController;
         }
 

@@ -15,21 +15,13 @@ namespace PL.Controllers
 
         private readonly IMapper mapper;
 
-        private DAL.Models.Client client;
+        public DAL.Models.Client? Client;
 
-        public ClientsController(IClientsService clientsService, IBooksService booksService)
+        public ClientsController(IClientsService clientsService, IBooksService booksService, IMapper mapper)
         {
             this.clientsService = clientsService;
             this.booksService = booksService;
-            var config = new MapperConfiguration(config =>
-            {
-                config.CreateMap<DAL.Models.Book, PL.Models.Book>();
-                config.CreateMap<DAL.Models.Genre, PL.Models.Genre>();
-                config.CreateMap<DAL.Models.Author, PL.Models.Author>();
-                config.CreateMap<DAL.Models.Client, PL.Models.Client>();
-                config.CreateMap<DAL.Models.Form, PL.Models.Form>();
-            });
-            mapper = new Mapper(config);
+            this.mapper = mapper;
         }
 
         public void Init()
@@ -64,32 +56,38 @@ namespace PL.Controllers
             }
         }
 
-        private void HandleAddBookToForm()
+        public void HandleAddBookToForm()
         {
             Console.WriteLine("Main > Clients > Search > Add book to form by identifier:");
 
             string identifier = GetCommand();
-            clientsService.AddBookToForm(client, booksService.GetById(Int32.Parse(identifier)));
+            clientsService.AddBookToForm(Client, booksService.GetById(Int32.Parse(identifier)));
         }
 
-        private void HandleDeleteBookFromForm()
+        public void HandleDeleteBookFromForm()
         {
             Console.WriteLine("Main > Clients > Search > Delete book from form by identifier:");
 
             string identifier = GetCommand();
-            clientsService.DeleteBookFromForm(client, booksService.GetById(Int32.Parse(identifier)));
+            clientsService.DeleteBookFromForm(Client, booksService.GetById(Int32.Parse(identifier)));
         }
 
-        private void HandleSearchByIdentifier()
+        public void HandleSearchByIdentifier()
         {
             Console.WriteLine("Main > Clients > Search by identifier:");
 
 
             string identifier = GetCommand();
-            client = clientsService.GetById(Int32.Parse(identifier));
+            Client = clientsService.GetById(Int32.Parse(identifier));
 
-            new ClientView(mapper.Map<PL.Models.Client>(client)).Show();
-            foreach (var book in client.Form.Books)
+            if (Client == null)
+            {
+                Console.WriteLine("Client not found");
+                return;
+            }
+
+            new ClientView(mapper.Map<PL.Models.Client>(Client)).Show();
+            foreach (var book in Client.Form.Books)
             {
                 new BookView(mapper.Map<Book>(book)).Show();
             }
@@ -97,13 +95,26 @@ namespace PL.Controllers
             InitClientMenu();
         }
 
-        private void HandleSearchByFormIdentifier()
+        public void HandleSearchByFormIdentifier()
         {
             Console.WriteLine("Main > Clients > Search by form identifier:");
 
             string identifier = GetCommand();
-            var client = clientsService.GetByFormId(Int32.Parse(identifier));
-            new ClientView(mapper.Map<Client>(client)).Show();
+            Client = clientsService.GetByFormId(Int32.Parse(identifier));
+
+            if (Client == null)
+            {
+                Console.WriteLine("Client not found");
+                return;
+            }
+
+            new ClientView(mapper.Map<PL.Models.Client>(Client)).Show();
+            foreach (var book in Client.Form.Books)
+            {
+                new BookView(mapper.Map<Book>(book)).Show();
+            }
+
+            InitClientMenu();
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Books</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th colspan="2">Author</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Name</td>
+                    <td>@book.Author.FirstName</td>
+                    <td>@book.Author.LastName</td>
+                    <td>@book.Genre.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

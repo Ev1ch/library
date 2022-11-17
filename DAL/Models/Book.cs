@@ -9,5 +9,7 @@
         public Author Author { get; set; }
 
         public Genre Genre { get; set; }
+
+        public ICollection<Form> Forms { get; set; }
     }
 }

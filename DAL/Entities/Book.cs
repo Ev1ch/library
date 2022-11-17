@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace DAL.Entities
+﻿namespace DAL.Entities
 {
     public class Book: Entity
     {
@@ -12,5 +9,7 @@ namespace DAL.Entities
         public Author Author;
 
         public Genre Genre;
+
+        public ICollection<Form> Forms { get; set; }
     }
 }

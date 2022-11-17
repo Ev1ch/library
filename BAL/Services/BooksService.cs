@@ -6,52 +6,10 @@ using DAL.Models;
 
 namespace BAL.Services
 {
-    internal class BooksService : Service, IBooksService
+    public class BooksService : Service, IBooksService
     {
-        private readonly Mapper mapper;
-
-        public BooksService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public BooksService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
-            var config = new MapperConfiguration(config =>
-            {
-                config.CreateMap<Book, DAL.Entities.Book>();
-                config.CreateMap<DAL.Entities.Book, Book>();
-                config.CreateMap<Genre, DAL.Entities.Genre>();
-                config.CreateMap<DAL.Entities.Genre, Genre>();
-                config.CreateMap<Author, DAL.Entities.Author>();
-                config.CreateMap<DAL.Entities.Author, Author>();
-            });
-            mapper = new Mapper(config);
-
-            var client = new DAL.Entities.Client()
-            {
-                FirstName = "Ivan",
-                MiddleName = "Ivanovych",
-                LastName = "Ivanov",
-                Form = new DAL.Entities.Form()
-                {
-                    Books = new List<DAL.Entities.Book>()
-                    {
-                        new DAL.Entities.Book()
-                        {
-                            Name = "Aa",
-                            Author = new DAL.Entities.Author()
-                            {
-                                FirstName = "Ivan",
-                                MiddleName = "Ivanovych",
-                                LastName = "Ivanov"
-                            },
-                            Genre = new DAL.Entities.Genre()
-                            {
-                                Name = "Genre"
-                            }
-                        }
-                    }
-                }
-            };
-
-            unitOfWork.ClientsRepository.Add(client);
-            unitOfWork.Save();
         }
 
         public void Add(Book book)

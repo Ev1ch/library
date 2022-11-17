@@ -2,11 +2,11 @@
 
 namespace PL
 {
-    public class Frontend
+    public class Startup
     {
         private readonly MainController mainPage;
 
-        public Frontend(MainController mainPage)
+        public Startup(MainController mainPage)
         {
             this.mainPage = mainPage;
         }

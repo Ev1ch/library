@@ -2,7 +2,7 @@
 {
     public class Controller
     {
-        protected string GetCommand()
+        public string GetCommand()
         {
             Console.Write(">> ");
             return Console.ReadLine();

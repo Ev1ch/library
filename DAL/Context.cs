@@ -1,15 +1,73 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using DAL.Entities;
+using DAL.UnitsOfWork;
 
 namespace DAL
 {
-    internal class Context : DbContext
+    public class Context : DbContext
     {
         public Context()
         {
             Database.EnsureDeleted();
             Database.EnsureCreated();
+
+            var client = new DAL.Entities.Client()
+            {
+                FirstName = "Ivan",
+                MiddleName = "Ivanovych",
+                LastName = "Ivanov",
+                Form = new DAL.Entities.Form()
+                {
+                    Books = new List<DAL.Entities.Book>()
+                    {
+                        new DAL.Entities.Book()
+                        {
+                            Name = "Aa",
+                            Author = new DAL.Entities.Author()
+                            {
+                                FirstName = "Ivan",
+                                MiddleName = "Ivanovych",
+                                LastName = "Ivanov"
+                            },
+                            Genre = new DAL.Entities.Genre()
+                            {
+                                Name = "Genre"
+                            }
+                        }
+                    }
+                }
+            };
+
+            var client1 = new DAL.Entities.Client()
+            {
+                FirstName = "Ivan",
+                MiddleName = "Ivanovych",
+                LastName = "Ivanov",
+                Form = new DAL.Entities.Form()
+                {
+                    Books = new List<DAL.Entities.Book>()
+                    {
+                        new DAL.Entities.Book()
+                        {
+                            Name = "Aa",
+                            Author = new DAL.Entities.Author()
+                            {
+                                FirstName = "Ivan",
+                                MiddleName = "Ivanovych",
+                                LastName = "Ivanov"
+                            },
+                            Genre = new DAL.Entities.Genre()
+                            {
+                                Name = "Genre"
+                            }
+                        }
+                    }
+                }
+            };
+
+            Clients.Add(client);
+            SaveChanges();
         }
 
         public virtual DbSet<Author> Authors { get; set; }

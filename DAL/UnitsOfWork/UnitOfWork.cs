@@ -3,7 +3,7 @@ using DAL.UnitsOfWork.Abstracts;
 
 namespace DAL.UnitsOfWork
 {
-    internal class UnitOfWork: IUnitOfWork
+    public class UnitOfWork: IUnitOfWork
     {
         private readonly Context context;
 

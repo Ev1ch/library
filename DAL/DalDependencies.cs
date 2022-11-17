@@ -11,7 +11,7 @@ namespace DAL
     {
         public static IServiceCollection SetDalDependencies(this IServiceCollection services)
         {
-            services.AddScoped<Context>();
+            services.AddSingleton<Context>();
             services.AddScoped<IAuthorsRepository, AuthorsRepository>();
             services.AddScoped<IBooksRepository, BooksRepository>();
             services.AddScoped<IClientsRepository, ClientsRepository>();

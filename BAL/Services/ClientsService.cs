@@ -6,26 +6,10 @@ using DAL.Models;
 
 namespace BAL.Services
 {
-    internal class ClientsService : Service, IClientsService
+    public class ClientsService : Service, IClientsService
     {
-        private readonly Mapper mapper;
-
-        public ClientsService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public ClientsService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
-            var config = new MapperConfiguration(config =>
-            {
-                config.CreateMap<DAL.Entities.Client, Client>();
-                config.CreateMap<DAL.Entities.Book, Book>();
-                config.CreateMap<DAL.Entities.Genre, Genre>();
-                config.CreateMap<DAL.Entities.Form, Form>();
-                config.CreateMap<DAL.Entities.Author, Author>();
-                config.CreateMap<Client, DAL.Entities.Client>();
-                config.CreateMap<Book, DAL.Entities.Book>();
-                config.CreateMap<Genre, DAL.Entities.Genre>();
-                config.CreateMap<Author, DAL.Entities.Author>();
-                config.CreateMap<Form, DAL.Entities.Form>();
-            });
-            mapper = new Mapper(config);
         }
 
         public void Add(Client client)
@@ -36,7 +20,6 @@ namespace BAL.Services
 
         public void Delete(Client client)
         {
-            
             unitOfWork.ClientsRepository.Delete(unitOfWork.ClientsRepository.GetById(client.Id)); 
             unitOfWork.Save();
         }

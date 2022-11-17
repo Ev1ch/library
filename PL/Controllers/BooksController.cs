@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using BAL.Services.Abstracts;
 using PL.Controllers.Abstracts;
 using PL.Views.Books;
@@ -11,17 +12,10 @@ namespace PL.Controllers
 
         private readonly IMapper mapper;
 
-        public BooksController(IBooksService booksService)
+        public BooksController(IBooksService booksService, IMapper mapper)
         {
             this.booksService = booksService;
-            var config = new MapperConfiguration(config => {
-                config.CreateMap<DAL.Models.Book, PL.Models.Book>();
-                config.CreateMap<DAL.Models.Genre, PL.Models.Genre>();
-                config.CreateMap<DAL.Models.Author, PL.Models.Author>();
-                config.CreateMap<DAL.Models.Client, PL.Models.Client>();
-                config.CreateMap<DAL.Models.Form, PL.Models.Form>();
-            });
-            mapper = new Mapper(config);
+            this.mapper = mapper;
         }
 
         public void Init()
@@ -43,7 +37,7 @@ namespace PL.Controllers
             }
         }
 
-        private void HandleSearchByName()
+        public void HandleSearchByName()
         {
             Console.WriteLine("Main > Books > Search by name:");
 
@@ -55,7 +49,7 @@ namespace PL.Controllers
             }
         }
 
-        private void HandleSearchByAuthor()
+        public void HandleSearchByAuthor()
         {
             Console.WriteLine("Main > Books > Search by author:");
 
@@ -67,7 +61,7 @@ namespace PL.Controllers
             }
         }
 
-        private void HandleSearchByGenre()
+        public void HandleSearchByGenre()
         {
             Console.WriteLine("Main > Books > Search by genre:");
 
