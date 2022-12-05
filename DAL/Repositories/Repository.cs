@@ -24,7 +24,7 @@ namespace DAL.Repositories
 
         public void Update(T entity)
         {
-            entities.Update(entity); 
+            entities.Update(entity);
         }
 
         public void Delete(T entity)
@@ -39,7 +39,7 @@ namespace DAL.Repositories
 
         public T? GetById(K id)
         {
-            return entities.Single(entity => entity.Id.Equals(id));
+            return entities.SingleOrDefault(entity => entity.Id.Equals(id));
         }
 
         public IEnumerable<T> GetAll()
@@ -49,12 +49,12 @@ namespace DAL.Repositories
 
         public T? GetFirst()
         {
-            return entities.First();
+            return entities.FirstOrDefault();
         }
 
         public T? GetOne(Func<T, bool> checker)
         {
-            return entities.First(checker);
+            return entities.FirstOrDefault(checker);
         }
     }
 }

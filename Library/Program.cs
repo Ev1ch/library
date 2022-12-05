@@ -17,7 +17,7 @@ namespace Library
 
             IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-            Startup client = serviceProvider.GetRequiredService<Startup>();
+            var client = serviceProvider.GetRequiredService<Startup>();
             client.Start();
         }
     }

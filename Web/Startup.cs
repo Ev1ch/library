@@ -24,6 +24,7 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
 

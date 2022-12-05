@@ -54,9 +54,14 @@ namespace Web.Controllers
         [Route("/books/{id}")]
         public IActionResult SearchByIdentifier(string id)
         {
-            var client = booksService.GetById(Int32.Parse(id));
+            if (!Int32.TryParse(id, out _))
+            {
+               
+            }
 
-            return View("Book", mapper.Map<Book>(client));
+            var book = booksService.GetById(Int32.Parse(id));
+
+            return View("Book", mapper.Map<Book>(book));
         }
     }
 }

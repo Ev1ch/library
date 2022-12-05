@@ -2,7 +2,7 @@
 
 namespace DAL.Repositories.Abstracts
 {
-    public interface IRepository<T, K> where T : Entity
+    public interface IRepository<T, K> where T : Entity 
     {
         public void Add(T entity);
 

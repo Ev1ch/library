@@ -5,11 +5,19 @@ namespace DAL.Tests.Repositories
 {
     public class FormsRepositoryTests
     {
+        private Author GetRandomAuthor()
+        {
+            return new Author()
+            {
+            };
+        }
+
         private Book GetRandomBook()
         {
             return new Book()
             {
-                Name = AutoFaker.Generate<string>()
+                Name = AutoFaker.Generate<string>(), 
+                Author = GetRandomAuthor()
             };
         }
 

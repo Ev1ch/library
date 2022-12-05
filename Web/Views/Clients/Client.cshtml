@@ -1,20 +1,55 @@
-﻿@model Client
+﻿@using BAL.Services
+@model Client
 @{
-    ViewData["Title"] = "Client";
+    ViewData["Title"] = $"{Model.FirstName} {Model.LastName}";
 }
 
 <div class="text-center">
-    <h1>@Model.FirstName @Model.LastName</h1>
+    <div>
+        <p>Client:</p>
+        <h1>@Model.FirstName @Model.LastName</h1>
+    </div>
 
-    <ul>
-        @foreach (var book in Model.Form.Books)
+    <div class="row">
+        @if (@Model.Form.Books.Count != ClientsService.BOOKS_PER_CLIENT_LIMIT)
         {
-            <li class="d-flex">
-                @book.Name, @book.Author.FirstName @book.Author.FirstName
-                <form method="post" action="/clients/@Model.Id/form/@book.Id">
-                    <button>Delete</button>
+            <div class="col-6">
+                <h2>Add books</h2>
+                <form method="post" action="/clients/@Model.Id/form">
+                    <input name="id" placeholder="Book identifier" />
+                    <button>Add</button>
                 </form>
-            </li>
+            </div>
         }
-    </ul>
+
+        <div class="col-6">
+            <h2>Books</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th colspan="2">Author</th>
+                        <th>Genre</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Model.Form.Books)
+                    {
+                        <tr>
+                            <td>@book.Name</td>
+                            <td>@book.Author.FirstName</td>
+                            <td>@book.Author.LastName</td>
+                            <td>@book.Genre.Name</td>
+                            <td>
+                                <form method="post" action="/clients/@Model.Id/form/@book.Id">
+                                    <button>Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

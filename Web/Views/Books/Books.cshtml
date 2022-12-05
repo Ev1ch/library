@@ -4,26 +4,33 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Books</h1>
+    <h1>Books</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Book</th>
-                <th colspan="2">Author</th>
-                <th>Genre</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var book in Model)
-            {
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@book.Name</td>
-                    <td>@book.Author.FirstName</td>
-                    <td>@book.Author.LastName</td>
-                    <td>@book.Genre.Name</td>
+                    <th>Book</th>
+                    <th colspan="2">Author</th>
+                    <th>Genre</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Name</td>
+                        <td>@book.Author.FirstName</td>
+                        <td>@book.Author.LastName</td>
+                        <td>@book.Genre.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Books not found</p>
+    }
 </div>

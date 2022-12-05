@@ -2,6 +2,10 @@
 {
     public class Book: Model<int>
     {
+        public int Quantity { get; set; }
+
+        public int Available { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

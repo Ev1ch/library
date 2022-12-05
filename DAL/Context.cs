@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using DAL.Entities;
-using DAL.UnitsOfWork;
 
 namespace DAL
 {
@@ -12,7 +11,7 @@ namespace DAL
             Database.EnsureDeleted();
             Database.EnsureCreated();
 
-            var client = new DAL.Entities.Client()
+            /*var client = new DAL.Entities.Client()
             {
                 FirstName = "Ivan",
                 MiddleName = "Ivanovych",
@@ -24,6 +23,8 @@ namespace DAL
                         new DAL.Entities.Book()
                         {
                             Name = "Aa",
+                            Available = 1,
+                            Quantity = 2,
                             Author = new DAL.Entities.Author()
                             {
                                 FirstName = "Ivan",
@@ -37,36 +38,9 @@ namespace DAL
                         }
                     }
                 }
-            };
+            };*/
 
-            var client1 = new DAL.Entities.Client()
-            {
-                FirstName = "Ivan",
-                MiddleName = "Ivanovych",
-                LastName = "Ivanov",
-                Form = new DAL.Entities.Form()
-                {
-                    Books = new List<DAL.Entities.Book>()
-                    {
-                        new DAL.Entities.Book()
-                        {
-                            Name = "Aa",
-                            Author = new DAL.Entities.Author()
-                            {
-                                FirstName = "Ivan",
-                                MiddleName = "Ivanovych",
-                                LastName = "Ivanov"
-                            },
-                            Genre = new DAL.Entities.Genre()
-                            {
-                                Name = "Genre"
-                            }
-                        }
-                    }
-                }
-            };
-
-            Clients.Add(client);
+            //Clients.Add(client);
             SaveChanges();
         }
 

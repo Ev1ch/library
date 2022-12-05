@@ -18,7 +18,7 @@ namespace PL.Views.Books
 
         private string Get()
         {
-            return $"{book.Id} | {book.Name}, {book.Author.FirstName} {book.Author.LastName}";
+            return $"{book.Id} | {book.Name} | {book.Author.FirstName} {book.Author.LastName} | {book.Genre.Name} | {book.Available}";
         }
     }
 }

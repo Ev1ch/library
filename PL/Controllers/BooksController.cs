@@ -22,7 +22,7 @@ namespace PL.Controllers
         {
             new MenuView().Show();
 
-            string command = GetCommand();
+            var command = GetCommand();
             switch (command)
             {
                 case "1":
@@ -41,8 +41,15 @@ namespace PL.Controllers
         {
             Console.WriteLine("Main > Books > Search by name:");
 
-            string genre = GetCommand();
+            var genre = GetCommand();
             var books = booksService.GetByName(genre);
+
+            if (!books.Any())
+            {
+                Console.WriteLine("Books not found");
+                return;
+            }
+
             foreach (var book in books)
             {
                 new BookView(mapper.Map<PL.Models.Book>(book)).Show();
@@ -53,8 +60,15 @@ namespace PL.Controllers
         {
             Console.WriteLine("Main > Books > Search by author:");
 
-            string genre = GetCommand();
+            var genre = GetCommand();
             var books = booksService.GetByAuthor(genre);
+
+            if (!books.Any())
+            {
+                Console.WriteLine("Books not found");
+                return;
+            }
+
             foreach (var book in books)
             {
                 new BookView(mapper.Map<PL.Models.Book>(book)).Show();
@@ -65,8 +79,15 @@ namespace PL.Controllers
         {
             Console.WriteLine("Main > Books > Search by genre:");
 
-            string genre = GetCommand();
+            var genre = GetCommand();
             var books = booksService.GetByGenre(genre);
+
+            if (!books.Any())
+            {
+                Console.WriteLine("Books not found");
+                return;
+            }
+
             foreach (var book in books)
             {
                 new BookView(mapper.Map<PL.Models.Book>(book)).Show();

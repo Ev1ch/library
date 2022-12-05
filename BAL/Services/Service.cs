@@ -13,7 +13,7 @@ namespace BAL.Services
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            this.mapper = new Mapper(new MapperConfiguration(BllDependencies.Configure));
+            //this.mapper = new Mapper(new MapperConfiguration(BllDependencies.Configure));
         }
     }
 }
