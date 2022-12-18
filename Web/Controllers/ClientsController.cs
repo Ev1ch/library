@@ -6,6 +6,7 @@ using Web.Models;
 
 namespace Web.Controllers
 {
+    [Route("/clients")]
     public class ClientsController : Controller
     {
         private readonly IClientsService clientsService;
@@ -14,27 +15,24 @@ namespace Web.Controllers
 
         private readonly IMapper mapper;
 
-        public ClientsController(IClientsService clientsService, IBooksService booksService)
+        public ClientsController(IClientsService clientsService, IBooksService booksService, IMapper mapper)
         {
             this.clientsService = clientsService;
             this.booksService = booksService;
-            var config = new MapperConfiguration(config =>
-            {
-                config.CreateMap<DAL.Models.Book, Book>();
-                config.CreateMap<DAL.Models.Genre, Genre>();
-                config.CreateMap<DAL.Models.Author, Author>();
-                config.CreateMap<DAL.Models.Client, Client>();
-                config.CreateMap<DAL.Models.Form, Form>();
-            });
-            mapper = new Mapper(config);
+            this.mapper = mapper;
         }
 
-        [Route("/clients")]
-        public IActionResult Index(string? form)
+        public IActionResult Index(int? form)
         {
             if (form != null)
             {
-                var client = clientsService.GetByFormId(Int32.Parse(form));
+                var client = clientsService.GetByFormId((int)form);
+
+                if (client == null)
+                {
+                    return View("Client", new Exception("a"));
+                }
+
                 return View("Client", mapper.Map<Client>(client));
             }
 
@@ -42,10 +40,10 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("/clients/{id}/form")]
-        public IActionResult AddBookToForm(string id, Book newBook)
+        [Route("{id}/form")]
+        public IActionResult AddBookToForm(int id, Book newBook)
         {
-            var client = clientsService.GetById(Int32.Parse(id));
+            var client = clientsService.GetById(id);
             var book = booksService.GetById(newBook.Id);
             clientsService.AddBookToForm(client, book);
 
@@ -53,20 +51,20 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("/clients/{clientId}/form/{bookId}")]
-        public IActionResult DeleteBookFromForm(string clientId, string bookId)
+        [Route("{clientId}/form/{bookId}")]
+        public IActionResult DeleteBookFromForm(int clientId, int bookId)
         {
-            var client = clientsService.GetById(Int32.Parse(clientId));
-            var book = booksService.GetById(Int32.Parse(bookId));
+            var client = clientsService.GetById(clientId);
+            var book = booksService.GetById(bookId);
             clientsService.DeleteBookFromForm(client, book);
 
             return Redirect($"/clients/{clientId}");
         }
 
-        [Route("/clients/{id}")]
-        public IActionResult SearchByIdentifier(string id)
+        [Route("{id}")]
+        public IActionResult SearchByIdentifier(int id)
         {
-            var client = clientsService.GetById(Int32.Parse(id));
+            var client = clientsService.GetById(id);
 
             return View("Client", mapper.Map<Client>(client));
         }

@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 using BAL.Services.Abstracts;
 using DAL.UnitsOfWork.Abstracts;
-using DAL.Models;
+using BAL.Models;
 
 namespace BAL.Services
 {
     public class ClientsService : Service, IClientsService
     {
-        public readonly static int BOOKS_PER_CLIENT_LIMIT = 10;
+        public static readonly int BOOKS_PER_CLIENT_LIMIT = 10;
 
         public ClientsService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
@@ -30,7 +31,7 @@ namespace BAL.Services
                 throw new Exception("Client not found");
             }
 
-            unitOfWork.ClientsRepository.Delete(convertedClient); 
+            unitOfWork.ClientsRepository.Delete(convertedClient);
             unitOfWork.Save();
         }
 
@@ -76,6 +77,11 @@ namespace BAL.Services
                 throw new Exception("Client has too many book");
             }
 
+            if (convertedClient.Form.Books.Any(book => convertedBook.Id.Equals(book.Id)))
+            {
+                throw new Exception("Client has such book already");
+            }
+
             if (convertedBook.Available == 0)
             {
                 throw new Exception("Book not available");
@@ -90,12 +96,29 @@ namespace BAL.Services
 
         public Client? GetByFormId(int id)
         {
-            return mapper.Map<Client>(unitOfWork.ClientsRepository.GetOne(entity => entity.Form.Id == id));
+            return mapper.Map<Client>(unitOfWork.ClientsRepository.GetOne(
+                entity => entity.Form.Id == id,
+                IncludeNestedEntities
+            ));
         }
 
         public Client? GetById(int id)
         {
-            return mapper.Map<Client>(unitOfWork.ClientsRepository.GetById(id));
+            return mapper.Map<Client>(unitOfWork.ClientsRepository.GetById(
+                id,
+                IncludeNestedEntities
+                ));
+        }
+
+        private IQueryable<DAL.Entities.Client> IncludeNestedEntities(IQueryable<DAL.Entities.Client> entities)
+        {
+            return entities
+                .Include(entity => entity.Form)
+                .ThenInclude(entity => entity.Books)
+                .ThenInclude(entity => entity.Genres)
+                .Include(entity => entity.Form)
+                .ThenInclude(entity => entity.Books)
+                .ThenInclude(entity => entity.Authors);
         }
     }
 }

@@ -73,19 +73,6 @@ namespace DAL.Tests.Repositories
         }
 
         [Test]
-        public void HandleGetFirstEntity_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var book = GetRandomBook();
-            var repository = new BooksRepository(context);
-
-            context.Books.Add(book);
-            context.SaveChanges();
-
-            repository.GetFirst().Should().Be(book);
-        }
-
-        [Test]
         public void HandleGetOneEntity_NormalEntity_ShouldBeDeleted()
         {
             var context = new Mocks.Context();
@@ -100,21 +87,6 @@ namespace DAL.Tests.Repositories
             context.SaveChanges();
 
             repository.GetOne(entity => entity.Name == name).Should().Be(book);
-        }
-
-        [Test]
-        public void HandleGetAllEntities_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var firstBook = GetRandomBook();
-            var secondBook = GetRandomBook();
-            var repository = new BooksRepository(context);
-
-            context.Books.Add(firstBook);
-            context.Books.Add(secondBook);
-            context.SaveChanges();
-
-            repository.GetAll().Should().Equal(firstBook, secondBook);
         }
 
         [Test]

@@ -2,7 +2,7 @@ using NSubstitute;
 using AutoBogus;
 
 using BAL.Services.Abstracts;
-using DAL.Models;
+using BAL.Models;
 using PL.Controllers;
 using AutoMapper;
 

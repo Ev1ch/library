@@ -3,7 +3,7 @@ using AutoMapper;
 
 using BAL.Services.Abstracts;
 using BAL.Services;
-using DAL.Models;
+using BAL.Models;
 
 namespace BAL
 {

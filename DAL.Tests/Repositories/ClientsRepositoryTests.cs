@@ -75,19 +75,6 @@ namespace DAL.Tests.Repositories
         }
 
         [Test]
-        public void HandleGetFirstEntity_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var client = GetRandomClient();
-            var repository = new ClientsRepository(context);
-
-            context.Clients.Add(client);
-            context.SaveChanges();
-
-            repository.GetFirst().Should().Be(client);
-        }
-
-        [Test]
         public void HandleGetOneEntity_NormalEntity_ShouldBeDeleted()
         {
             var context = new Mocks.Context();
@@ -104,21 +91,6 @@ namespace DAL.Tests.Repositories
             context.SaveChanges();
 
             repository.GetOne(entity => entity.FirstName == name).Should().Be(client);
-        }
-
-        [Test]
-        public void HandleGetAllEntities_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var firstClient = GetRandomClient();
-            var secondClient = GetRandomClient();
-            var repository = new ClientsRepository(context);
-
-            context.Clients.Add(firstClient);
-            context.Clients.Add(secondClient);
-            context.SaveChanges();
-
-            repository.GetAll().Should().Equal(firstClient, secondClient);
         }
 
         [Test]

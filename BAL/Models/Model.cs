@@ -1,4 +1,4 @@
-﻿namespace DAL.Models
+﻿namespace BAL.Models
 {
     public class Model<T>
     {

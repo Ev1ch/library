@@ -18,7 +18,7 @@ namespace PL.Views.Books
 
         private string Get()
         {
-            return $"{book.Id} | {book.Name} | {book.Author.FirstName} {book.Author.LastName} | {book.Genre.Name} | {book.Available}";
+            return $"{book.Id} | {book.Name} | {String.Join(", ", book.Authors.Select(author => $"{author.FirstName} {author.LastName}"))} | {String.Join(", ", book.Genres.Select(genre => genre.Name))} | {book.Available} / {book.Quantity}";
         }
     }
 }

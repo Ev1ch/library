@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 using BAL.Services.Abstracts;
 using DAL.UnitsOfWork.Abstracts;
-using DAL.Models;
+using BAL.Models;
 
 namespace BAL.Services
 {
@@ -22,7 +23,10 @@ namespace BAL.Services
         {
             return unitOfWork
                 .BooksRepository
-                .GetMany(entity => entity.Author.FirstName.Contains(author))
+                .GetMany(
+                    entity => entity.Authors.Any(currentAuthor => currentAuthor.FullName.Contains(author)),
+                    IncludeNestedEntities
+                    )
                 .Select(entity => mapper.Map<Book>(entity));
         }
 
@@ -30,7 +34,10 @@ namespace BAL.Services
         {
             return unitOfWork
                 .BooksRepository
-                .GetMany(entity => entity.Name.Contains(name))
+                .GetMany(
+                    entity => entity.Name.Contains(name),
+                    IncludeNestedEntities
+                    )
                 .Select(entity => mapper.Map<Book>(entity));
         }
 
@@ -38,15 +45,29 @@ namespace BAL.Services
         {
             return mapper.Map<Book>(unitOfWork
                 .BooksRepository
-                .GetById(id));
+                .GetById(
+                    id,
+                    IncludeNestedEntities
+                )
+            );
         }
 
         public IEnumerable<Book> GetByGenre(string genre)
         {
             return unitOfWork
                 .BooksRepository
-                .GetMany(entity => entity.Genre.Name.Contains(genre))
+                .GetMany(
+                    entity => entity.Genres.Any(currentGenre => currentGenre.Name.Equals(genre)),
+                    IncludeNestedEntities
+                )
                 .Select(entity => mapper.Map<Book>(entity));
+        }
+
+        private IQueryable<DAL.Entities.Book> IncludeNestedEntities(IQueryable<DAL.Entities.Book> entities)
+        {
+            return entities
+                .Include(entity => entity.Authors)
+                .Include(entity => entity.Genres);
         }
     }
 }

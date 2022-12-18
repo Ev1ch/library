@@ -12,8 +12,8 @@ namespace BAL.Services
         public Service(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
-            this.mapper = mapper;
-            //this.mapper = new Mapper(new MapperConfiguration(BllDependencies.Configure));
+            //this.mapper = mapper;
+            this.mapper = new Mapper(new MapperConfiguration(BllDependencies.Configure));
         }
     }
 }

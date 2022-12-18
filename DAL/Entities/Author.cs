@@ -1,6 +1,8 @@
-﻿namespace DAL.Entities
+﻿using DAL.Entities.Relations;
+
+namespace DAL.Entities
 {
-    public class Author: Entity
+    public class Author : Entity<int>
     {
         public string FirstName { get; set; }
 
@@ -10,6 +12,8 @@
 
         public ICollection<Book> Books { get; set; }
 
-        public string? FullName { get; private set; }
+        public List<AuthorBook<int, int>> AuthorBooks { get; set; }
+
+        public string FullName => FirstName + " " + LastName + " " + MiddleName;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DAL.Repositories.Abstracts
 {
-    public interface IClientsRepository: IRepository<Client, int>
+    public interface IClientsRepository : IRepository<Client, int>
     {
     }
 }

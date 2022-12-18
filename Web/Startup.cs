@@ -11,6 +11,7 @@ namespace Web
         {
             services.SetDalDependencies();
             services.SetBllDependencies();
+            services.SetWebDependencies();
 
             services.AddDistributedMemoryCache();
             services.AddSession();

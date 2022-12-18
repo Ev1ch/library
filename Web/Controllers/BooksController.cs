@@ -7,27 +7,19 @@ using BAL.Services;
 
 namespace Web.Controllers
 {
+    [Route("/books")]
     public class BooksController : Controller
     {
         private readonly IBooksService booksService;
 
         private readonly IMapper mapper;
 
-        public BooksController(IBooksService booksService)
+        public BooksController(IBooksService booksService, IMapper mapper)
         {
             this.booksService = booksService;
-            var config = new MapperConfiguration(config =>
-            {
-                config.CreateMap<DAL.Models.Book, Book>();
-                config.CreateMap<DAL.Models.Genre, Genre>();
-                config.CreateMap<DAL.Models.Author, Author>();
-                config.CreateMap<DAL.Models.Client, Client>();
-                config.CreateMap<DAL.Models.Form, Form>();
-            });
-            mapper = new Mapper(config);
+            this.mapper = mapper;
         }
 
-        [Route("/books")]
         public IActionResult Index(string? name, string? author, string? genre)
         {
             if (name != null)
@@ -51,15 +43,10 @@ namespace Web.Controllers
             return View();
         }
 
-        [Route("/books/{id}")]
-        public IActionResult SearchByIdentifier(string id)
+        [Route("/{id}")]
+        public IActionResult SearchByIdentifier(int id)
         {
-            if (!Int32.TryParse(id, out _))
-            {
-               
-            }
-
-            var book = booksService.GetById(Int32.Parse(id));
+            var book = booksService.GetById(id);
 
             return View("Book", mapper.Map<Book>(book));
         }

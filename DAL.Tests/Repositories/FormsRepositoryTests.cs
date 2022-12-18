@@ -17,7 +17,7 @@ namespace DAL.Tests.Repositories
             return new Book()
             {
                 Name = AutoFaker.Generate<string>(), 
-                Author = GetRandomAuthor()
+                Authors = new List<Author>(){ GetRandomAuthor() },
             };
         }
 
@@ -101,19 +101,6 @@ namespace DAL.Tests.Repositories
         }
 
         [Test]
-        public void HandleGetFirstEntity_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var form = GetRandomForm();
-            var repository = new FormsRepository(context);
-
-            context.Forms.Add(form);
-            context.SaveChanges();
-
-            repository.GetFirst().Should().Be(form);
-        }
-
-        [Test]
         public void HandleGetOneEntity_NormalEntity_ShouldBeDeleted()
         {
             var context = new Mocks.Context();
@@ -129,21 +116,6 @@ namespace DAL.Tests.Repositories
             context.SaveChanges();
 
             repository.GetOne(entity => entity.Books.Contains(book)).Should().Be(form);
-        }
-
-        [Test]
-        public void HandleGetAllEntities_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var firstForm = GetRandomForm();
-            var secondForm = GetRandomForm();
-            var repository = new FormsRepository(context);
-
-            context.Forms.Add(firstForm);
-            context.Forms.Add(secondForm);
-            context.SaveChanges();
-
-            repository.GetAll().Should().Equal(firstForm, secondForm);
         }
 
         [Test]

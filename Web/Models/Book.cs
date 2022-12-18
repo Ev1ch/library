@@ -1,13 +1,17 @@
 ﻿namespace Web.Models
 {
-    public class Book: Model<int>
+    public class Book : Model<int>
     {
-        public string Name { get; set; }
+        public int Quantity { get; set; }
 
         public int Available { get; set; }
 
-        public Author Author { get; set; }
+        public string Name { get; set; }
 
-        public Genre Genre { get; set; }
+        public ICollection<Author> Authors { get; set; }
+
+        public ICollection<Genre> Genres { get; set; }
+
+        public ICollection<Form> Forms { get; set; }
     }
 }

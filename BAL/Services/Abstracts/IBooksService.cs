@@ -1,4 +1,4 @@
-﻿using DAL.Models;
+﻿using BAL.Models;
 
 namespace BAL.Services.Abstracts
 {

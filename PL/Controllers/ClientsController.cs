@@ -16,7 +16,7 @@ namespace PL.Controllers
 
         private readonly IMapper mapper;
 
-        public DAL.Models.Client? Client;
+        public BAL.Models.Client? Client;
 
         public ClientsController(IClientsService clientsService, IBooksService booksService, IMapper mapper)
         {

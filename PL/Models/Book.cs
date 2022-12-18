@@ -8,8 +8,8 @@
 
         public string Name { get; set; }
 
-        public Author Author { get; set; }
+        public ICollection<Author> Authors { get; set; }
 
-        public Genre Genre { get; set; }
+        public ICollection<Genre> Genres { get; set; }
     }
 }

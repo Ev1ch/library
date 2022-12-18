@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
 using BAL.Services;
-using DAL.Models;
+using BAL.Models;
 using DAL.UnitsOfWork.Abstracts;
 
 namespace BAL.Tests.Services

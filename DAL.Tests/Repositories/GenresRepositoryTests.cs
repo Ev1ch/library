@@ -73,19 +73,6 @@ namespace DAL.Tests.Repositories
         }
 
         [Test]
-        public void HandleGetFirstEntity_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var genre = GetRandomGenre();
-            var repository = new GenresRepository(context);
-
-            context.Genres.Add(genre);
-            context.SaveChanges();
-
-            repository.GetFirst().Should().Be(genre);
-        }
-
-        [Test]
         public void HandleGetOneEntity_NormalEntity_ShouldBeDeleted()
         {
             var context = new Mocks.Context();
@@ -100,21 +87,6 @@ namespace DAL.Tests.Repositories
             context.SaveChanges();
 
             repository.GetOne(entity => entity.Name == name).Should().Be(genre);
-        }
-
-        [Test]
-        public void HandleGetAllEntities_NormalEntity_ShouldBeDeleted()
-        {
-            var context = new Mocks.Context();
-            var firstGenre = GetRandomGenre();
-            var secondGenre = GetRandomGenre();
-            var repository = new GenresRepository(context);
-
-            context.Genres.Add(firstGenre);
-            context.Genres.Add(secondGenre);
-            context.SaveChanges();
-
-            repository.GetAll().Should().Equal(firstGenre, secondGenre);
         }
 
         [Test]
