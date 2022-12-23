@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class MainController: Controller
+    public class MainController : Controller
     {
         private IMapper mapper;
 

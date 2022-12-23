@@ -1,7 +1,15 @@
 ﻿@using BAL.Services
+@using Controller = Web.Controllers.Controller;
 @model Client
+
 @{
-    ViewData["Title"] = $"{Model.FirstName} {Model.LastName}";
+    var error = Controller.GetError(TempData);
+}
+
+@if (error != null)
+{
+    <p class="">@error.Message</p>
+    return;
 }
 
 <div class="text-center">

@@ -1,8 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Main";
+﻿@using BAL.Services
+@using Controller = Web.Controllers.Controller;
+@model Book
+
+@{
+    var error = Controller.GetError(TempData);
+}
+
+@if (error != null)
+{
+    <p class="">@error.Message</p>
+    return;
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div>
+        <p>Book:</p>
+        <h1>@Model.Name @Model.Available / @Model.Quantity</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <h2>Authors</h2>
+            <ul>
+                @foreach (var author in Model.Authors)
+                {
+                    <li>@author.FirstName @author.LastName</li>
+                }
+            </ul>
+        </div>
+        <div class="col-6">
+            <h2>Genres</h2>
+            <ul>
+                @foreach (var genre in Model.Genres)
+                {
+                    <li>@genre.Name</li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>

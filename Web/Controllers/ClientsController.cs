@@ -30,7 +30,9 @@ namespace Web.Controllers
 
                 if (client == null)
                 {
-                    return View("Client", new Exception("a"));
+                    SetError(new Exception("Client not found"));
+
+                    return View("Client");
                 }
 
                 return View("Client", mapper.Map<Client>(client));
@@ -44,7 +46,23 @@ namespace Web.Controllers
         public IActionResult AddBookToForm(int id, Book newBook)
         {
             var client = clientsService.GetById(id);
+
+            if (client == null)
+            {
+                SetError(new Exception("Client not found"));
+
+                return Redirect($"/clients/{id}");
+            }
+
             var book = booksService.GetById(newBook.Id);
+
+            if (book == null)
+            {
+                SetError(new Exception("Book not found"));
+
+                return Redirect($"/clients/{id}");
+            }
+
             clientsService.AddBookToForm(client, book);
 
             return Redirect($"/clients/{id}");
@@ -55,7 +73,23 @@ namespace Web.Controllers
         public IActionResult DeleteBookFromForm(int clientId, int bookId)
         {
             var client = clientsService.GetById(clientId);
+
+            if (client == null)
+            {
+                SetError(new Exception("Client not found"));
+
+                return Redirect($"/clients/{clientId}");
+            }
+
             var book = booksService.GetById(bookId);
+
+            if (book == null)
+            {
+                SetError(new Exception("Book not found"));
+
+                return Redirect($"/clients/{clientId}");
+            }
+
             clientsService.DeleteBookFromForm(client, book);
 
             return Redirect($"/clients/{clientId}");
@@ -65,6 +99,13 @@ namespace Web.Controllers
         public IActionResult SearchByIdentifier(int id)
         {
             var client = clientsService.GetById(id);
+
+            if (client == null)
+            {
+                SetError(new Exception("Client not found"));
+
+                return Redirect($"/clients/{id}");
+            }
 
             return View("Client", mapper.Map<Client>(client));
         }

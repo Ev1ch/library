@@ -6,7 +6,7 @@ using PL.Views.Books;
 
 namespace PL.Controllers
 {
-    public class BooksController: Controller, IController
+    public class BooksController : Controller, IController
     {
         private readonly IBooksService booksService;
 

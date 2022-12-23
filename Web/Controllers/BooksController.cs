@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 
 using BAL.Services.Abstracts;
 using Web.Models;
-using BAL.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
@@ -20,33 +19,28 @@ namespace Web.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult Index(string? name, string? author, string? genre)
+        public IActionResult Index([FromQuery] GetByFilters filters)
         {
-            if (name != null)
+            if (!filters.IsEmpty())
             {
-                var books = booksService.GetByName(name);
-                return View("Books", books.Select(mapper.Map<Book>));
-            }
+                var books = booksService.GetBy(filters);
 
-            if (author != null)
-            {
-                var books = booksService.GetByAuthor(author);
-                return View("Books", books.Select(mapper.Map<Book>));
-            }
-
-            if (genre != null)
-            {
-                var books = booksService.GetByGenre(genre);
                 return View("Books", books.Select(mapper.Map<Book>));
             }
 
             return View();
         }
 
-        [Route("/{id}")]
+        [Route("{id}")]
         public IActionResult SearchByIdentifier(int id)
         {
             var book = booksService.GetById(id);
+
+            if (book == null)
+            {
+                SetError(new Exception("Book not found"));
+                return View("Book");
+            }
 
             return View("Book", mapper.Map<Book>(book));
         }

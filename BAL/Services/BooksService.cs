@@ -57,7 +57,36 @@ namespace BAL.Services
             return unitOfWork
                 .BooksRepository
                 .GetMany(
-                    entity => entity.Genres.Any(currentGenre => currentGenre.Name.Equals(genre)),
+                    entity => entity.Genres.Any(currentGenre => currentGenre.Name.Contains(genre)),
+                    IncludeNestedEntities
+                )
+                .Select(entity => mapper.Map<Book>(entity));
+        }
+
+        public IEnumerable<Book> GetBy(GetByFilters filters)
+        {
+            return unitOfWork
+                .BooksRepository
+                .GetMany(
+                    entity =>
+                    {
+                        if (filters.Genre != null && !entity.Genres.Any(genre => genre.Name.Contains(filters.Genre)))
+                        {
+                            return false;
+                        }
+
+                        if (filters.Author != null && !entity.Authors.Any(author => author.FullName.Contains(filters.Author)))
+                        {
+                            return false;
+                        }
+
+                        if (filters.Name != null && !entity.Name.Contains(filters.Name))
+                        {
+                            return false;
+                        }
+
+                        return true;
+                    },
                     IncludeNestedEntities
                 )
                 .Select(entity => mapper.Map<Book>(entity));
