@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
+    [Route("/")]
     public class MainController : Controller
     {
         private IMapper mapper;
@@ -12,7 +13,6 @@ namespace Web.Controllers
             this.mapper = mapper;
         }
 
-        [Route("/")]
         public IActionResult Index()
         {
             return View();

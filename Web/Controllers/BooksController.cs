@@ -31,10 +31,10 @@ namespace Web.Controllers
             return View();
         }
 
-        [Route("{id}")]
-        public IActionResult SearchByIdentifier(int id)
+        [Route("{bookId}")]
+        public IActionResult SearchByIdentifier(int bookId)
         {
-            var book = booksService.GetById(id);
+            var book = booksService.GetById(bookId);
 
             if (book == null)
             {

@@ -8,27 +8,12 @@
         <h1></h1>
     </div>
 
-    <div class="row">
-        <div class="col-4">
-            <h2>Search by author</h2>
-            <form action="/books">
-                <input name="Author" placeholder="Author" class="form-control"/>
-                <button class="btn btn-primary">Get</button>
-            </form>
-        </div>
-        <div class="col-4">
-            <h2>Search by name</h2>
-            <form action="/books">
-                <input name="Name" placeholder="Name" class="form-control" />
-                <button class="btn btn-primary">Get</button>
-            </form>
-        </div>
-        <div class="col-4">
-            <h2>Search by genre</h2>
-            <form action="/books">
-                <input name="Genre" placeholder="Genre" class="form-control" />
-                <button class="btn btn-primary" n>Get</button>
-            </form>
-        </div>
+    <div>
+        <form action="/books">
+            <input name="Author" placeholder="Author" class="form-control" />
+            <input name="Name" placeholder="Name" class="form-control" />
+            <input name="Genre" placeholder="Genre" class="form-control" />
+            <button class="btn btn-primary">Get</button>
+        </form>
     </div>
 </div>

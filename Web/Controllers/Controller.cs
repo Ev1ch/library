@@ -6,12 +6,17 @@ namespace Web.Controllers
     {
         public static Exception? GetError(ITempDataDictionary tempData)
         {
-            return (Exception?)tempData["Error"];
+            if (!tempData.ContainsKey("Error"))
+            {
+                return null;
+            }
+
+            return new Exception((string)tempData["Error"]);
         }
 
         protected void SetError(Exception exception)
         {
-            TempData["Error"] = exception;
+            TempData["Error"] = exception.Message;
         }
     }
 }

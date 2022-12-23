@@ -28,7 +28,7 @@ namespace DAL
             BuildDefaultFields(modelBuilder);
             BuildRelations(modelBuilder);
 
-            modelBuilder.Entity<Client>().HasData(new DAL.Entities.Client()
+            /*modelBuilder.Entity<Client>().HasData(new DAL.Entities.Client()
              {
                  Id = 1,
                  FirstName = "Ivan",
@@ -63,7 +63,7 @@ namespace DAL
                  Id = 1,
                  ClientId = 1,
              });
-             modelBuilder.Entity<FormBook<int, int>>().HasData(new FormBook<int, int> { FormId = 1, BookId = 1 });
+             modelBuilder.Entity<FormBook<int, int>>().HasData(new FormBook<int, int> { FormId = 1, BookId = 1 });*/
         }
 
         protected void BuildRelations(ModelBuilder modelBuilder)

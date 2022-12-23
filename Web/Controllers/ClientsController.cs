@@ -42,16 +42,16 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("{id}/form")]
-        public IActionResult AddBookToForm(int id, Book newBook)
+        [Route("{clientId}/form")]
+        public IActionResult AddBookToForm(int clientId, Book newBook)
         {
-            var client = clientsService.GetById(id);
+            var client = clientsService.GetById(clientId);
 
             if (client == null)
             {
                 SetError(new Exception("Client not found"));
 
-                return Redirect($"/clients/{id}");
+                return Redirect($"/clients/{clientId}");
             }
 
             var book = booksService.GetById(newBook.Id);
@@ -60,12 +60,12 @@ namespace Web.Controllers
             {
                 SetError(new Exception("Book not found"));
 
-                return Redirect($"/clients/{id}");
+                return Redirect($"/clients/{clientId}");
             }
 
             clientsService.AddBookToForm(client, book);
 
-            return Redirect($"/clients/{id}");
+            return Redirect($"/clients/{clientId}");
         }
 
         [HttpPost]
@@ -95,16 +95,16 @@ namespace Web.Controllers
             return Redirect($"/clients/{clientId}");
         }
 
-        [Route("{id}")]
-        public IActionResult SearchByIdentifier(int id)
+        [Route("{clientId}")]
+        public IActionResult SearchByIdentifier(int clientId)
         {
-            var client = clientsService.GetById(id);
+            var client = clientsService.GetById(clientId);
 
             if (client == null)
             {
                 SetError(new Exception("Client not found"));
 
-                return Redirect($"/clients/{id}");
+                return Redirect($"/clients/{clientId}");
             }
 
             return View("Client", mapper.Map<Client>(client));

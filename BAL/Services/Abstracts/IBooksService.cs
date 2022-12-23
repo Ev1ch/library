@@ -16,7 +16,8 @@ namespace BAL.Services.Abstracts
             return new List<string?>()
             {
                 Author, Name, Genre
-            }.All(item => item == null);
+            }
+                .All(item => item == null);
         }
     }
 
