@@ -1,10 +1,10 @@
-﻿using BAL.Models;
+﻿using BLL.Models;
 
-namespace BAL.Services.Abstracts
+namespace BLL.Services.Abstracts
 {
     public interface IClientsService
     {
-        public void Add(Client client);
+        public Client Add(Client client);
 
         public void Delete(Client client);
 

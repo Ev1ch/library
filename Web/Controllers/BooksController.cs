@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using BLL.Exeptions;
 
 namespace Web.Controllers
 {
@@ -38,11 +39,28 @@ namespace Web.Controllers
 
             if (book == null)
             {
-                SetError(new Exception("Book not found"));
+                SetError(new NotFoundException("Book not found"));
                 return View("Book");
             }
 
             return View("Book", mapper.Map<Book>(book));
+        }
+
+        [HttpPost]
+        [Route("{bookId}/delete")]
+        public IActionResult DeleteByIdentifier(int bookId)
+        {
+            var book = booksService.GetById(bookId);
+
+            if (book == null)
+            {
+                SetError(new NotFoundException("Book not found"));
+                return View("Book");
+            }
+
+            booksService.Delete(book);
+
+            return Redirect("/books");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
 using DAL;
-using BAL;
+using BLL;
 using PL;
 
 namespace Library

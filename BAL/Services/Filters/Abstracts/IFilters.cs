@@ -1,4 +1,4 @@
-﻿namespace BAL.Services.Filters.Abstracts
+﻿namespace BLL.Services.Filters.Abstracts
 {
     internal interface IFilters
     {

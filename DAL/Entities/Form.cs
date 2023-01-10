@@ -10,6 +10,6 @@ namespace DAL.Entities
 
         public ICollection<Book> Books { get; set; }
 
-        public List<FormBook<int, int>> FormBooks { get; set; }
+        public ICollection<FormBook> FormBooks { get; set; }
     }
 }

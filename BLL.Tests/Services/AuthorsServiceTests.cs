@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 
-using BAL.Services;
-using BAL.Models;
+using BLL.Services;
+using BLL.Models;
 using DAL.UnitsOfWork.Abstracts;
 
-namespace BAL.Tests.Services
+namespace BLL.Tests.Services
 {
     internal class AuthorsServiceTests
     {

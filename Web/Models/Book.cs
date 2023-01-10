@@ -1,4 +1,6 @@
-﻿namespace Web.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Web.Models
 {
     public class Book : Model<int>
     {
@@ -6,12 +8,13 @@
 
         public int Available { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
-        public ICollection<Author> Authors { get; set; }
+        public IList<Author> Authors { get; set; }
 
-        public ICollection<Genre> Genres { get; set; }
+        public IList<Genre> Genres { get; set; }
 
-        public ICollection<Form> Forms { get; set; }
+        public IList<Form> Forms { get; set; }
     }
 }

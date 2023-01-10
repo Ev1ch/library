@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 
-using BAL.Services;
-using BAL.Models;
+using BLL.Services;
+using BLL.Models;
 using DAL.UnitsOfWork.Abstracts;
+using System.Linq.Expressions;
 
-namespace BAL.Tests.Services
+namespace BLL.Tests.Services
 {
     internal class ClientsServiceTests
     {
@@ -54,7 +55,7 @@ namespace BAL.Tests.Services
             var convertedClient = Substitute.For<DAL.Entities.Client>();
             var mapper = Substitute.For<IMapper>();
             var service = new ClientsService(unitOfWork, mapper);
-            unitOfWork.ClientsRepository.GetOne(Arg.Any<Func<DAL.Entities.Client, bool>>()).Returns(convertedClient);
+            unitOfWork.ClientsRepository.GetOne(Arg.Any<Expression<Func<DAL.Entities.Client, bool>>>()).Returns(convertedClient);
             mapper.Map<Client>(convertedClient).Returns(client);
 
             service.GetByFormId(id)

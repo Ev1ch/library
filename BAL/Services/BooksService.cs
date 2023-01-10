@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using DAL.UnitsOfWork.Abstracts;
-using BAL.Models;
+using BLL.Models;
+using BLL.Exeptions;
 
-namespace BAL.Services
+namespace BLL.Services
 {
     public class BooksService : Service, IBooksService
     {
@@ -13,10 +14,25 @@ namespace BAL.Services
         {
         }
 
-        public void Add(Book book)
+        public Book Add(Book book)
         {
-            unitOfWork.BooksRepository.Add(mapper.Map<DAL.Entities.Book>(book));
+            var convertedBook = mapper.Map<DAL.Entities.Book>(book);
+            unitOfWork.BooksRepository.Add(convertedBook);
             unitOfWork.Save();
+
+            return mapper.Map<Book>(convertedBook);
+        }
+
+        public void Delete(Book book)
+        {
+            var existingBook = unitOfWork.BooksRepository.GetById(book.Id);
+
+            if (existingBook == null)
+            {
+                throw new NotFoundException("Book not found");
+            }
+
+            unitOfWork.BooksRepository.Delete(existingBook);
         }
 
         public IEnumerable<Book> GetByAuthor(string author)
@@ -24,8 +40,7 @@ namespace BAL.Services
             return unitOfWork
                 .BooksRepository
                 .GetMany(
-                    entity => entity.Authors.Any(currentAuthor => currentAuthor.FullName.Contains(author)),
-                    IncludeNestedEntities
+                    entity => entity.Authors.Any(currentAuthor => currentAuthor.FullName.Contains(author))
                     )
                 .Select(entity => mapper.Map<Book>(entity));
         }
@@ -35,8 +50,7 @@ namespace BAL.Services
             return unitOfWork
                 .BooksRepository
                 .GetMany(
-                    entity => entity.Name.Contains(name),
-                    IncludeNestedEntities
+                    entity => entity.Name.Contains(name)
                     )
                 .Select(entity => mapper.Map<Book>(entity));
         }
@@ -46,8 +60,7 @@ namespace BAL.Services
             return mapper.Map<Book>(unitOfWork
                 .BooksRepository
                 .GetById(
-                    id,
-                    IncludeNestedEntities
+                    id
                 )
             );
         }
@@ -57,8 +70,7 @@ namespace BAL.Services
             return unitOfWork
                 .BooksRepository
                 .GetMany(
-                    entity => entity.Genres.Any(currentGenre => currentGenre.Name.Contains(genre)),
-                    IncludeNestedEntities
+                    entity => entity.Genres.Any(currentGenre => currentGenre.Name.Contains(genre))
                 )
                 .Select(entity => mapper.Map<Book>(entity));
         }
@@ -69,34 +81,15 @@ namespace BAL.Services
                 .BooksRepository
                 .GetMany(
                     entity =>
-                    {
-                        if (filters.Genre != null && !entity.Genres.Any(genre => genre.Name.Contains(filters.Genre)))
-                        {
-                            return false;
-                        }
-
-                        if (filters.Author != null && !entity.Authors.Any(author => author.FullName.Contains(filters.Author)))
-                        {
-                            return false;
-                        }
-
-                        if (filters.Name != null && !entity.Name.Contains(filters.Name))
-                        {
-                            return false;
-                        }
-
-                        return true;
-                    },
-                    IncludeNestedEntities
+                        filters.Genre != null && !entity.Genres.Any(genre => genre.Name.Contains(filters.Genre)) ?
+                            false
+                        : filters.Author != null && !entity.Authors.Any(author => (author.FirstName + " " + author.LastName).Contains(filters.Author)) ?
+                            false
+                        : filters.Name != null && !entity.Name.Contains(filters.Name) ?
+                            false  
+                        : true
                 )
                 .Select(entity => mapper.Map<Book>(entity));
-        }
-
-        private IQueryable<DAL.Entities.Book> IncludeNestedEntities(IQueryable<DAL.Entities.Book> entities)
-        {
-            return entities
-                .Include(entity => entity.Authors)
-                .Include(entity => entity.Genres);
         }
     }
 }

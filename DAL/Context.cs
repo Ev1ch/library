@@ -28,7 +28,7 @@ namespace DAL
             BuildDefaultFields(modelBuilder);
             BuildRelations(modelBuilder);
 
-            /*modelBuilder.Entity<Client>().HasData(new DAL.Entities.Client()
+            modelBuilder.Entity<Client>().HasData(new DAL.Entities.Client()
              {
                  Id = 1,
                  FirstName = "Ivan",
@@ -56,14 +56,14 @@ namespace DAL
                  Available = 1,
                  Quantity = 2,
              });
-             modelBuilder.Entity<AuthorBook<int, int>>().HasData(new AuthorBook<int, int>{AuthorId = 1, BookId = 1});
-             modelBuilder.Entity<BookGenre<int, int>>().HasData(new BookGenre<int, int>{BookId = 1, GenreId = 1});
+             modelBuilder.Entity<AuthorBook>().HasData(new AuthorBook{AuthorId = 1, BookId = 1});
+             modelBuilder.Entity<BookGenre>().HasData(new BookGenre{BookId = 1, GenreId = 1});
              modelBuilder.Entity<Form>().HasData(new DAL.Entities.Form()
              {
                  Id = 1,
                  ClientId = 1,
              });
-             modelBuilder.Entity<FormBook<int, int>>().HasData(new FormBook<int, int> { FormId = 1, BookId = 1 });*/
+             modelBuilder.Entity<FormBook>().HasData(new FormBook { FormId = 1, BookId = 1 });
         }
 
         protected void BuildRelations(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace DAL
             modelBuilder.Entity<Book>()
                 .HasMany(book => book.Genres)
                 .WithMany(genre => genre.Books)
-                .UsingEntity<BookGenre<int, int>>(
+                .UsingEntity<BookGenre>(
                     j => j
                         .HasOne(pt => pt.Genre)
                         .WithMany(t => t.BookGenres)
@@ -88,7 +88,7 @@ namespace DAL
             modelBuilder.Entity<Author>()
                 .HasMany(author => author.Books)
                 .WithMany(book => book.Authors)
-                .UsingEntity<AuthorBook<int, int>>(
+                .UsingEntity<AuthorBook>(
                     j => j
                         .HasOne(pt => pt.Book)
                         .WithMany(t => t.AuthorBooks)
@@ -105,7 +105,7 @@ namespace DAL
             modelBuilder.Entity<Form>()
                 .HasMany(form => form.Books)
                 .WithMany(book => book.Forms)
-                .UsingEntity<FormBook<int, int>>(
+                .UsingEntity<FormBook>(
                     j => j
                         .HasOne(pt => pt.Book)
                         .WithMany(t => t.FormBooks)

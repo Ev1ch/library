@@ -2,14 +2,44 @@
     ViewData["Title"] = "Clients";
 }
 
-<div class="text-center">
-    <h1>Clients</h1>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Clients</li>
+    </ol>
+</nav>
 
-    <div>
-        <h2>Search by form</h2>
-        <form action="/clients">
-            <input name="form" placeholder="Form" class="form-control"/>
-            <button class="btn btn-primary">Get</button>
-        </form>
+<div class="text-center">
+    <div class="mb-5">
+        <h1>Clients</h1>
+    </div>
+ 
+
+    <div class="d-flex gap-3 justify-content-between align-items-center">
+        <div class="flex-grow-1">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Search by form</h2>
+                    <form action="/clients">
+                        <div class="mb-2">
+                            <label class="form-label">Form</label>
+                            <input name="form" placeholder="Form" class="form-control" autocomplete="off" autofocus />
+                        </div>
+                        <button class="btn btn-primary">Get</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="vr"></div>
+
+        <div class="flex-grow-1">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Add new client</h2>
+                    <a class="btn btn-primary" href="/clients/add">Add</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

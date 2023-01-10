@@ -1,13 +1,14 @@
 ﻿namespace DAL.Entities.Relations
 {
-    public class AuthorBook<T, K>
+    public class AuthorBook
     {
-        public T AuthorId { get; set; }
+        public int AuthorId { get; set; }
 
         public Author Author { get; set; }
 
-        public K BookId { get; set; }
+        public int BookId { get; set; }
 
         public Book Book { get; set; }
     }
+    // AuthorBook.Include<Book>( p => p.Book).Where().
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using PL.Controllers.Abstracts;
 using PL.Views.Books;
 

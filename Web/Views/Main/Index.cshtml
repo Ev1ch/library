@@ -2,7 +2,35 @@
     ViewData["Title"] = "Main";
 }
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Home</li>
+    </ol>
+</nav>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="mb-5">
+        <h1>Home</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Books</h2>
+                    <p class="card-text">Here you can find information and control over books</p>
+                    <a class="btn btn-primary w-100" href="/books">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Clients</h2>
+                    <p class="card-text">Here you can find information and control over clients</p>
+                    <a class="btn btn-primary w-100" href="/clients">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

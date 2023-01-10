@@ -74,7 +74,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthorBook<int, int>",
+                name: "AuthorBook",
                 columns: table => new
                 {
                     AuthorId = table.Column<int>(type: "int", nullable: false),
@@ -82,15 +82,15 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorBook<int, int>", x => new { x.AuthorId, x.BookId });
+                    table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_AuthorBook<int, int>_Authors_AuthorId",
+                        name: "FK_AuthorBook_Authors_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AuthorBook<int, int>_Books_BookId",
+                        name: "FK_AuthorBook_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
@@ -118,7 +118,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookGenre<int, int>",
+                name: "BookGenre",
                 columns: table => new
                 {
                     BookId = table.Column<int>(type: "int", nullable: false),
@@ -126,15 +126,15 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookGenre<int, int>", x => new { x.BookId, x.GenreId });
+                    table.PrimaryKey("PK_BookGenre", x => new { x.BookId, x.GenreId });
                     table.ForeignKey(
-                        name: "FK_BookGenre<int, int>_Books_BookId",
+                        name: "FK_BookGenre_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookGenre<int, int>_Genres_GenreId",
+                        name: "FK_BookGenre_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
@@ -142,7 +142,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FormBook<int, int>",
+                name: "FormBook",
                 columns: table => new
                 {
                     FormId = table.Column<int>(type: "int", nullable: false),
@@ -150,15 +150,15 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FormBook<int, int>", x => new { x.FormId, x.BookId });
+                    table.PrimaryKey("PK_FormBook", x => new { x.FormId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_FormBook<int, int>_Books_BookId",
+                        name: "FK_FormBook_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FormBook<int, int>_Forms_FormId",
+                        name: "FK_FormBook_Forms_FormId",
                         column: x => x.FormId,
                         principalTable: "Forms",
                         principalColumn: "Id",
@@ -186,12 +186,12 @@ namespace DAL.Migrations
                 values: new object[] { 1, "Genre" });
 
             migrationBuilder.InsertData(
-                table: "AuthorBook<int, int>",
+                table: "AuthorBook",
                 columns: new[] { "AuthorId", "BookId" },
                 values: new object[] { 1, 1 });
 
             migrationBuilder.InsertData(
-                table: "BookGenre<int, int>",
+                table: "BookGenre",
                 columns: new[] { "BookId", "GenreId" },
                 values: new object[] { 1, 1 });
 
@@ -201,23 +201,23 @@ namespace DAL.Migrations
                 values: new object[] { 1, 1 });
 
             migrationBuilder.InsertData(
-                table: "FormBook<int, int>",
+                table: "FormBook",
                 columns: new[] { "BookId", "FormId" },
                 values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorBook<int, int>_BookId",
-                table: "AuthorBook<int, int>",
+                name: "IX_AuthorBook_BookId",
+                table: "AuthorBook",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookGenre<int, int>_GenreId",
-                table: "BookGenre<int, int>",
+                name: "IX_BookGenre_GenreId",
+                table: "BookGenre",
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FormBook<int, int>_BookId",
-                table: "FormBook<int, int>",
+                name: "IX_FormBook_BookId",
+                table: "FormBook",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
@@ -231,13 +231,13 @@ namespace DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuthorBook<int, int>");
+                name: "AuthorBook");
 
             migrationBuilder.DropTable(
-                name: "BookGenre<int, int>");
+                name: "BookGenre");
 
             migrationBuilder.DropTable(
-                name: "FormBook<int, int>");
+                name: "FormBook");
 
             migrationBuilder.DropTable(
                 name: "Authors");

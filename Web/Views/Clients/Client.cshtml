@@ -1,4 +1,4 @@
-﻿@using BAL.Services
+﻿@using BLL.Services
 @using Controller = Web.Controllers.Controller;
 @model Client
 
@@ -6,69 +6,90 @@
     var error = Controller.GetError(TempData);
 }
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/clients">Clients</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Client</li>
+    </ol>
+</nav>
+
 @if (error != null)
 {
-    <p class="">@error.Message</p>
+    <div class="text-center">
+        <div>
+            <h1>@error.Message</h1>
+        </div>
+    </div>
     return;
 }
 
 <div class="text-center">
-    <div>
-        <p>Client:</p>
+    <div class="mb-5">
         <h1>@Model.FirstName @Model.LastName</h1>
     </div>
 
-    <div class="row">
-        @if (@Model.Form.Books.Count != ClientsService.BOOKS_PER_CLIENT_LIMIT)
-        {
-            <div class="col-6">
-                <h2>Add books</h2>
-                <form method="post" action="/clients/@Model.Id/form">
-                    <input name="id" placeholder="Book identifier" />
-                    <button>Add</button>
-                </form>
-            </div>
-        }
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                @if (@Model.Form.Books.Count != ClientsService.BOOKS_PER_CLIENT_LIMIT)
+                {
+                    <div class="col-4">
+                        <h2>Add books</h2>
+                        <form method="post" action="/clients/@Model.Id/form"> 
+                            <input name="id" placeholder="Book identifier" class="form-control mb-2" />
+                            <button class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                }
 
-        <div class="col-6">
-            <h2>Books</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Book</th>
-                        <th>Authors</th>
-                        <th>Genre</th>
-                        <th>Availability</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var book in Model.Form.Books)
-                    {
-                        <tr>
-                            <td>@book.Name</td>
-                            <td>
-                                @foreach (var author in book.Authors)
-                                {
-                                    <span>@author.FirstName @author.LastName</span>
-                                }
-                            </td>
-                            <td>
-                                @foreach (var genre in book.Genres)
-                                {
-                                    <span>@genre.Name</span>
-                                }
-                            </td>
-                            <td>@book.Available / @book.Quantity</td>
-                            <td>
-                                <form method="post" action="/clients/@Model.Id/form/@book.Id">
-                                    <button>Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                <div class="col-8">
+                    <h2>Books</h2>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Book</th>
+                                <th>Authors</th>
+                                <th>Genre</th>
+                                <th>Availability</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var book in Model.Form.Books)
+                            {
+                                <tr>
+                                    <td>@book.Name</td>
+                                    <td>
+                                        @foreach (var author in book.Authors)
+                                        {
+                                            <span>@author.FirstName @author.LastName</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @foreach (var genre in book.Genres)
+                                        {
+                                            <span>@genre.Name</span>
+                                        }
+                                    </td>
+                                    <td>@book.Available / @book.Quantity</td>
+                                    <td>
+                                        <form method="post" action="/clients/@Model.Id/form/@book.Id/delete">
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <form method="post" action="/clients/@Model.Id/delete">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

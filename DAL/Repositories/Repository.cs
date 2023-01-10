@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 using DAL.Entities;
 using DAL.Repositories.Abstracts;
@@ -17,49 +18,43 @@ namespace DAL.Repositories
             this.entities = entities;
         }
 
-        public virtual void Add(T entity)
+        public T Add(T entity)
         {
             entities.Add(entity);
+
+            return entity;
         }
 
-        public virtual void Update(T entity)
+        public T Update(T entity)
         {
             entities.Update(entity);
+
+            return entity;
         }
 
-        public virtual void Delete(T entity)
+        public void Delete(T entity)
         {
             entities.Remove(entity);
         }
 
-        public virtual IEnumerable<T> GetMany(Func<T, bool> checker, Func<IQueryable<T>, IQueryable<T>>? preparer = null)
+        public IEnumerable<T> GetMany(Expression<Func<T, bool>> checker)
         {
-            if (preparer != null)
-            {
-                return preparer(entities).Where(checker);
-            }
-
-            return entities.Where(checker);
+            return IncludeNestedEntities(entities).Where(checker);
         }
 
-        public virtual T? GetById(K id, Func<IQueryable<T>, IQueryable<T>>? preparer = null)
+        public T? GetById(K id)
         {
-            if (preparer != null)
-            {
-                return preparer(entities).FirstOrDefault(entity => entity.Id.Equals(id));
-            }
-
-            return entities.Find(id);
+            return IncludeNestedEntities(entities).FirstOrDefault(entity => entity.Id.Equals(id));
         }
 
-        public virtual T? GetOne(Func<T, bool> checker, Func<IQueryable<T>, IQueryable<T>>? preparer = null)
+        public T? GetOne(Expression<Func<T, bool>> checker)
         {
-            if (preparer != null)
-            {
-                return preparer(entities).FirstOrDefault(checker);
-            }
+            return IncludeNestedEntities(entities).SingleOrDefault(checker);
+        }
 
-            return entities.FirstOrDefault(checker);
+        protected virtual IQueryable<T> IncludeNestedEntities(IQueryable<T> entities)
+        {
+            return entities;
         }
     }
 }

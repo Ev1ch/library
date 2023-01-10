@@ -1,6 +1,6 @@
-﻿using BAL.Models;
+﻿using BLL.Models;
 
-namespace BAL.Services.Abstracts
+namespace BLL.Services.Abstracts
 {
     public interface IAuthorsService
     {

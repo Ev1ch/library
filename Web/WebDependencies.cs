@@ -18,11 +18,16 @@ namespace Web
 
         public static void Configure(IMapperConfigurationExpression config)
         {
-            config.CreateMap<BAL.Models.Book, Book>();
-            config.CreateMap<BAL.Models.Genre, Genre>();
-            config.CreateMap<BAL.Models.Author, Author>();
-            config.CreateMap<BAL.Models.Client, Client>();
-            config.CreateMap<BAL.Models.Form, Form>();
+            config.CreateMap<BLL.Models.Book, Book>();
+            config.CreateMap<Book, BLL.Models.Book>();
+            config.CreateMap<BLL.Models.Genre, Genre>();
+            config.CreateMap<Genre, BLL.Models.Genre>();
+            config.CreateMap<BLL.Models.Author, Author>();
+            config.CreateMap<Author, BLL.Models.Author>();
+            config.CreateMap<BLL.Models.Client, Client>();
+            config.CreateMap<Client, BLL.Models.Client>();
+            config.CreateMap<BLL.Models.Form, Form>();
+            config.CreateMap<Form, BLL.Models.Form>();
         }
     }
 }

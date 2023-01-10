@@ -1,4 +1,4 @@
-﻿@using BAL.Services
+﻿@using BLL.Services
 @using Controller = Web.Controllers.Controller;
 @model Book
 
@@ -6,36 +6,56 @@
     var error = Controller.GetError(TempData);
 }
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/books">Books</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Book</li>
+    </ol>
+</nav>
+
 @if (error != null)
 {
-    <p class="">@error.Message</p>
+    <div class="text-center">
+        <div class="mb-5">
+            <h1>@error.Message</h1>
+        </div>
+    </div>
     return;
 }
 
 <div class="text-center">
-    <div>
-        <p>Book:</p>
-        <h1>@Model.Name @Model.Available / @Model.Quantity</h1>
+    <div class="mb-5">
+        <h1>@Model.Name</h1>
     </div>
 
-    <div class="row">
-        <div class="col-6">
-            <h2>Authors</h2>
-            <ul>
-                @foreach (var author in Model.Authors)
-                {
-                    <li>@author.FirstName @author.LastName</li>
-                }
-            </ul>
-        </div>
-        <div class="col-6">
-            <h2>Genres</h2>
-            <ul>
-                @foreach (var genre in Model.Genres)
-                {
-                    <li>@genre.Name</li>
-                }
-            </ul>
+    <div class="card">
+        <div class="card-body">
+            <div>
+                <h2>Quantity</h2> 
+                <p>@Model.Available / @Model.Quantity</p>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <h2>Authors</h2>
+                    <ol class="list-group list-group-numbered">
+                        @foreach (var author in Model.Authors)
+                        {
+                            <li class="list-group-item">@author.FirstName @author.LastName</li>
+                        }
+                    </ol>
+                </div>
+                <div class="col-6">
+                    <h2>Genres</h2>
+                    <ol class="list-group list-group-numbered">
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <li class="list-group-item">@genre.Name</li>
+                        }
+                    </ol>
+                </div>
+            </div>
         </div>
     </div>
 </div>

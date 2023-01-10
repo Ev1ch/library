@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BAL\BAL.csproj" />
+    <ProjectReference Include="..\BAL\BLL.csproj" />
   </ItemGroup>
 
 </Project>

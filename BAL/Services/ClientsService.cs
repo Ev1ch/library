@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using DAL.UnitsOfWork.Abstracts;
-using BAL.Models;
+using BLL.Models;
+using BLL.Exeptions;
 
-namespace BAL.Services
+namespace BLL.Services
 {
     public class ClientsService : Service, IClientsService
     {
@@ -15,11 +16,14 @@ namespace BAL.Services
         {
         }
 
-        public void Add(Client client)
+        public Client Add(Client client)
         {
             var convertedClient = mapper.Map<DAL.Entities.Client>(client);
+            convertedClient.Form = new DAL.Entities.Form();
             unitOfWork.ClientsRepository.Add(convertedClient);
             unitOfWork.Save();
+
+            return mapper.Map<Client>(convertedClient);
         }
 
         public void Delete(Client client)
@@ -28,7 +32,13 @@ namespace BAL.Services
 
             if (convertedClient == null)
             {
-                throw new Exception("Client not found");
+                throw new NotFoundException("Client not found");
+            }
+
+            foreach (var book in convertedClient.Form.Books)
+            {
+                var convetedBook = mapper.Map<Book>(book);
+                DeleteBookFromForm(client, convetedBook);
             }
 
             unitOfWork.ClientsRepository.Delete(convertedClient);
@@ -42,12 +52,12 @@ namespace BAL.Services
 
             if (convertedClient == null)
             {
-                throw new Exception("Client not found");
+                throw new NotFoundException("Client not found");
             }
 
             if (convertedBook == null)
             {
-                throw new Exception("Book not found");
+                throw new NotFoundException("Book not found");
             }
 
             convertedBook.Available++;
@@ -64,29 +74,35 @@ namespace BAL.Services
 
             if (convertedClient == null)
             {
-                throw new Exception("Client not found");
+                //TODO create a custom exception named NotFoundContent :
+                // Exception, or create a extend NotFoundBookException: NotFoundContent : NotFoundException 
+                // Middleware catch (NotFoundContent) return NotFoundResult();
+                throw new NotFoundException("Client not found");
             }
 
             if (convertedBook == null)
             {
-                throw new Exception("Book not found");
+                //Do not use abstract exception in bll
+                throw new NotFoundException("Book not found");
             }
 
             if (convertedClient.Form.Books.Count == BOOKS_PER_CLIENT_LIMIT)
             {
-                throw new Exception("Client has too many book");
+                throw new WrongOperationException("Client has too many book");
             }
 
             if (convertedClient.Form.Books.Any(book => convertedBook.Id.Equals(book.Id)))
             {
-                throw new Exception("Client has such book already");
+                throw new AlreadyExistsException("Client has such book already");
             }
 
             if (convertedBook.Available == 0)
             {
-                throw new Exception("Book not available");
+                throw new NotAvailableException("Book not available");
             }
 
+            //possibly concurrency issues on db level
+            // row version should be used 
             convertedBook.Available--;
             convertedClient.Form.Books.Add(convertedBook);
             unitOfWork.ClientsRepository.Update(convertedClient);
@@ -97,28 +113,15 @@ namespace BAL.Services
         public Client? GetByFormId(int id)
         {
             return mapper.Map<Client>(unitOfWork.ClientsRepository.GetOne(
-                entity => entity.Form.Id == id,
-                IncludeNestedEntities
+                entity => entity.Form.Id == id
             ));
         }
 
         public Client? GetById(int id)
         {
             return mapper.Map<Client>(unitOfWork.ClientsRepository.GetById(
-                id,
-                IncludeNestedEntities
+                id
                 ));
-        }
-
-        private IQueryable<DAL.Entities.Client> IncludeNestedEntities(IQueryable<DAL.Entities.Client> entities)
-        {
-            return entities
-                .Include(entity => entity.Form)
-                .ThenInclude(entity => entity.Books)
-                .ThenInclude(entity => entity.Genres)
-                .Include(entity => entity.Form)
-                .ThenInclude(entity => entity.Books)
-                .ThenInclude(entity => entity.Authors);
         }
     }
 }

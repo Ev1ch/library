@@ -1,7 +1,7 @@
-﻿using BAL.Models;
-using BAL.Services.Filters.Abstracts;
+﻿using BLL.Models;
+using BLL.Services.Filters.Abstracts;
 
-namespace BAL.Services.Abstracts
+namespace BLL.Services.Abstracts
 {
     public class GetByFilters : IFilters
     {
@@ -23,7 +23,7 @@ namespace BAL.Services.Abstracts
 
     public interface IBooksService
     {
-        public void Add(Book book);
+        public Book Add(Book book);
 
         public IEnumerable<Book> GetByAuthor(string author);
 
@@ -32,6 +32,8 @@ namespace BAL.Services.Abstracts
         public IEnumerable<Book> GetByGenre(string genre);
 
         public IEnumerable<Book> GetBy(GetByFilters filters);
+
+        public void Delete(Book book);
 
         public Book? GetById(int id);
     }

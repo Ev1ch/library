@@ -1,8 +1,8 @@
 using NSubstitute;
 using AutoBogus;
 
-using BAL.Services.Abstracts;
-using BAL.Models;
+using BLL.Services.Abstracts;
+using BLL.Models;
 using PL.Controllers;
 using AutoMapper;
 

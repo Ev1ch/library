@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221220184530_Initial")]
+    [Migration("20230102150603_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -209,7 +209,7 @@ namespace DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DAL.Entities.Relations.AuthorBook<int, int>", b =>
+            modelBuilder.Entity("DAL.Entities.Relations.AuthorBook", b =>
                 {
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
@@ -221,7 +221,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("AuthorBook<int, int>");
+                    b.ToTable("AuthorBook");
 
                     b.HasData(
                         new
@@ -231,7 +231,7 @@ namespace DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DAL.Entities.Relations.BookGenre<int, int>", b =>
+            modelBuilder.Entity("DAL.Entities.Relations.BookGenre", b =>
                 {
                     b.Property<int>("BookId")
                         .HasColumnType("int");
@@ -243,7 +243,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("BookGenre<int, int>");
+                    b.ToTable("BookGenre");
 
                     b.HasData(
                         new
@@ -253,7 +253,7 @@ namespace DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DAL.Entities.Relations.FormBook<int, int>", b =>
+            modelBuilder.Entity("DAL.Entities.Relations.FormBook", b =>
                 {
                     b.Property<int>("FormId")
                         .HasColumnType("int");
@@ -265,7 +265,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("FormBook<int, int>");
+                    b.ToTable("FormBook");
 
                     b.HasData(
                         new
@@ -286,7 +286,7 @@ namespace DAL.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Relations.AuthorBook<int, int>", b =>
+            modelBuilder.Entity("DAL.Entities.Relations.AuthorBook", b =>
                 {
                     b.HasOne("DAL.Entities.Author", "Author")
                         .WithMany("AuthorBooks")
@@ -305,7 +305,7 @@ namespace DAL.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Relations.BookGenre<int, int>", b =>
+            modelBuilder.Entity("DAL.Entities.Relations.BookGenre", b =>
                 {
                     b.HasOne("DAL.Entities.Book", "Book")
                         .WithMany("BookGenres")
@@ -324,7 +324,7 @@ namespace DAL.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Relations.FormBook<int, int>", b =>
+            modelBuilder.Entity("DAL.Entities.Relations.FormBook", b =>
                 {
                     b.HasOne("DAL.Entities.Book", "Book")
                         .WithMany("FormBooks")

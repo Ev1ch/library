@@ -4,6 +4,6 @@
     {
         public Client Client { get; set; }
 
-        public ICollection<Book> Books { get; set; }
+        public IList<Book> Books { get; set; }
     }
 }

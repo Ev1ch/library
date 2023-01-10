@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using PL.Controllers.Abstracts;
 using PL.Views.Books;
 using PL.Views.Clients;
@@ -16,7 +16,7 @@ namespace PL.Controllers
 
         private readonly IMapper mapper;
 
-        public BAL.Models.Client? Client;
+        public BLL.Models.Client? Client;
 
         public ClientsController(IClientsService clientsService, IBooksService booksService, IMapper mapper)
         {

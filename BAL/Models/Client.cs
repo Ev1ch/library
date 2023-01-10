@@ -1,4 +1,4 @@
-﻿namespace BAL.Models
+﻿namespace BLL.Models
 {
     public class Client : User
     {

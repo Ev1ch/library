@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 
-using BAL.Services;
-using BAL.Models;
+using BLL.Services;
+using BLL.Models;
 using DAL.UnitsOfWork.Abstracts;
+using System.Linq.Expressions;
 
-namespace BAL.Tests.Services
+namespace BLL.Tests.Services
 {
     internal class BooksServiceTests
     {
@@ -53,7 +54,7 @@ namespace BAL.Tests.Services
             var mapper = Substitute.For<IMapper>();
             var service = new BooksService(unitOfWork, mapper);
             mapper.Map<Book>(convertedBook).Returns(book);
-            unitOfWork.BooksRepository.GetMany(Arg.Any<Func<DAL.Entities.Book, bool>>()).Returns(new List<DAL.Entities.Book>() { convertedBook });
+            unitOfWork.BooksRepository.GetMany(Arg.Any<Expression<Func<DAL.Entities.Book, bool>>>()).Returns(new List<DAL.Entities.Book>() { convertedBook });
 
             service.GetByName(name).Should().Equal(book);
         }
@@ -68,7 +69,7 @@ namespace BAL.Tests.Services
             var mapper = Substitute.For<IMapper>();
             var service = new BooksService(unitOfWork, mapper);
             mapper.Map<Book>(convertedBook).Returns(book);
-            unitOfWork.BooksRepository.GetMany(Arg.Any<Func<DAL.Entities.Book, bool>>()).Returns(new List<DAL.Entities.Book>() { convertedBook });
+            unitOfWork.BooksRepository.GetMany(Arg.Any<Expression<Func<DAL.Entities.Book, bool>>>()).Returns(new List<DAL.Entities.Book>() { convertedBook });
 
             service.GetByGenre(name).Should().Equal(book);
         }
@@ -83,7 +84,7 @@ namespace BAL.Tests.Services
             var mapper = Substitute.For<IMapper>();
             var service = new BooksService(unitOfWork, mapper);
             mapper.Map<Book>(convertedBook).Returns(book);
-            unitOfWork.BooksRepository.GetMany(Arg.Any<Func<DAL.Entities.Book, bool>>()).Returns(new List<DAL.Entities.Book>() { convertedBook });
+            unitOfWork.BooksRepository.GetMany(Arg.Any<Expression<Func<DAL.Entities.Book, bool>>>()).Returns(new List<DAL.Entities.Book>() { convertedBook });
 
             service.GetByAuthor(author).Should().Equal(book);
         }

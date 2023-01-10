@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using Web.Models;
+using BLL.Exeptions;
 
 namespace Web.Controllers
 {
@@ -30,7 +31,7 @@ namespace Web.Controllers
 
                 if (client == null)
                 {
-                    SetError(new Exception("Client not found"));
+                    SetError(new NotFoundException("Client not found"));
 
                     return View("Client");
                 }
@@ -41,42 +42,91 @@ namespace Web.Controllers
             return View();
         }
 
+        [Route("add")]
+        public IActionResult AddIndex()
+        {
+            return View("Add");
+        }
+
         [HttpPost]
-        [Route("{clientId}/form")]
-        public IActionResult AddBookToForm(int clientId, Book newBook)
+        [Route("add")]
+        public IActionResult Add(Client client)
+        {
+            if (!ModelState.IsValid)
+            {
+                SetError(new NotValidException("New client is not valid"));
+
+                return View("Add");
+            }
+
+            var addedClient = clientsService.Add(mapper.Map<BLL.Models.Client>(client));
+
+            return Redirect($"/clients/{addedClient.Id}");
+        }
+
+        [HttpPost]
+        [Route("{clientId}/delete")]
+        public IActionResult Delete(int clientId)
         {
             var client = clientsService.GetById(clientId);
 
             if (client == null)
             {
-                SetError(new Exception("Client not found"));
+                SetError(new NotFoundException("Client not found"));
 
-                return Redirect($"/clients/{clientId}");
+                return Redirect("/clients");
             }
 
-            var book = booksService.GetById(newBook.Id);
+            clientsService.Delete(client);
 
-            if (book == null)
-            {
-                SetError(new Exception("Book not found"));
-
-                return Redirect($"/clients/{clientId}");
-            }
-
-            clientsService.AddBookToForm(client, book);
-
-            return Redirect($"/clients/{clientId}");
+            return Redirect("/clients");
         }
 
         [HttpPost]
-        [Route("{clientId}/form/{bookId}")]
+        [Route("{clientId}/form")]
+        public IActionResult AddBookToForm(int clientId, Book newBook)
+        {
+            try
+            {
+                var client = clientsService.GetById(clientId);
+
+                if (client == null)
+                {
+                    SetError(new NotFoundException("Client not found"));
+
+                    return Redirect($"/clients");
+                }
+
+                var book = booksService.GetById(newBook.Id);
+
+                if (book == null)
+                {
+                    SetError(new NotFoundException("Book not found"));
+
+                    return Redirect($"/clients/{clientId}");
+                }
+
+                clientsService.AddBookToForm(client, book);
+
+                return Redirect($"/clients/{clientId}");
+            }
+            catch (Exception exception)
+            {
+                SetError(exception);
+
+                return Redirect($"/clients/{clientId}");
+            }
+        }
+
+        [HttpPost]
+        [Route("{clientId}/form/{bookId}/delete")]
         public IActionResult DeleteBookFromForm(int clientId, int bookId)
         {
             var client = clientsService.GetById(clientId);
 
             if (client == null)
             {
-                SetError(new Exception("Client not found"));
+                SetError(new NotFoundException("Client not found"));
 
                 return Redirect($"/clients/{clientId}");
             }
@@ -85,7 +135,7 @@ namespace Web.Controllers
 
             if (book == null)
             {
-                SetError(new Exception("Book not found"));
+                SetError(new NotFoundException("Book not found"));
 
                 return Redirect($"/clients/{clientId}");
             }
@@ -102,7 +152,7 @@ namespace Web.Controllers
 
             if (client == null)
             {
-                SetError(new Exception("Client not found"));
+                SetError(new NotFoundException("Client not found"));
 
                 return Redirect($"/clients/{clientId}");
             }

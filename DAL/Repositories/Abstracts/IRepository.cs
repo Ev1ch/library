@@ -1,18 +1,20 @@
-﻿using DAL.Entities;
+﻿using System.Linq.Expressions;
+
+using DAL.Entities;
 
 namespace DAL.Repositories.Abstracts
 {
     public interface IRepository<T, K> where T : Entity<K>
     {
-        public void Add(T entity);
+        public T Add(T entity);
 
-        public T? GetById(K id, Func<IQueryable<T>, IQueryable<T>>? preparer = null);
+        public T? GetById(K id);
 
-        public IEnumerable<T> GetMany(Func<T, bool> checker, Func<IQueryable<T>, IQueryable<T>>? preparer = null);
+        public IEnumerable<T> GetMany(Expression<Func<T, bool>> checker);
 
-        public T? GetOne(Func<T, bool> checker, Func<IQueryable<T>, IQueryable<T>>? preparer = null);
+        public T? GetOne(Expression<Func<T, bool>> checker);
 
-        public void Update(T entity);
+        public T Update(T entity);
 
         public void Delete(T entity);
     }

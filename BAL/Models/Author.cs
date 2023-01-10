@@ -1,4 +1,4 @@
-﻿namespace BAL.Models
+﻿namespace BLL.Models
 {
     public class Author : Model<int>
     {
@@ -8,7 +8,8 @@
 
         public string LastName { get; set; }
 
-        public ICollection<Book> Books { get; set; }
+        //Use IList or list 
+        public IList<Book> Books { get; set; }
 
         public string FullName => FirstName + " " + LastName + " " + MiddleName;
     }

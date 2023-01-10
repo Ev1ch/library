@@ -23,16 +23,16 @@ namespace PL
 
         public static void Configure(IMapperConfigurationExpression config)
         {
-            config.CreateMap<Book, BAL.Models.Book>();
-            config.CreateMap<BAL.Models.Book, Book>();
-            config.CreateMap<Genre, BAL.Models.Genre>();
-            config.CreateMap<BAL.Models.Genre, Genre>();
-            config.CreateMap<Author, BAL.Models.Author>();
-            config.CreateMap<BAL.Models.Author, Author>();
-            config.CreateMap<Form, BAL.Models.Form>();
-            config.CreateMap<BAL.Models.Form, Form>();
-            config.CreateMap<Client, BAL.Models.Client>();
-            config.CreateMap<BAL.Models.Client, Client>();
+            config.CreateMap<Book, BLL.Models.Book>();
+            config.CreateMap<BLL.Models.Book, Book>();
+            config.CreateMap<Genre, BLL.Models.Genre>();
+            config.CreateMap<BLL.Models.Genre, Genre>();
+            config.CreateMap<Author, BLL.Models.Author>();
+            config.CreateMap<BLL.Models.Author, Author>();
+            config.CreateMap<Form, BLL.Models.Form>();
+            config.CreateMap<BLL.Models.Form, Form>();
+            config.CreateMap<Client, BLL.Models.Client>();
+            config.CreateMap<BLL.Models.Client, Client>();
         }
     }
 }

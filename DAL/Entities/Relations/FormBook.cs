@@ -1,12 +1,12 @@
 ﻿namespace DAL.Entities.Relations
 {
-    public class FormBook<T, K>
+    public class FormBook
     {
-        public T FormId { get; set; }
+        public int FormId { get; set; }
 
         public Form Form { get; set; }
 
-        public K BookId { get; set; }
+        public int BookId { get; set; }
 
         public Book Book { get; set; }
     }

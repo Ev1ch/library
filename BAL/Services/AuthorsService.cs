@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
-using BAL.Services.Abstracts;
+using BLL.Services.Abstracts;
 using DAL.UnitsOfWork.Abstracts;
 
-namespace BAL.Services
+namespace BLL.Services
 {
     public class AuthorsService: Service, IAuthorsService
     {

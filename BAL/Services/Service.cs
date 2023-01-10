@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DAL.UnitsOfWork.Abstracts;
 
-namespace BAL.Services
+namespace BLL.Services
 {
     public class Service
     {

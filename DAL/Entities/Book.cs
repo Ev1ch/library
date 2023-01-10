@@ -12,14 +12,14 @@ namespace DAL.Entities
 
         public ICollection<Author> Authors { get; set; }
 
-        public List<AuthorBook<int, int>> AuthorBooks { get; set; }
+        public ICollection<AuthorBook> AuthorBooks { get; set; }
 
         public ICollection<Genre> Genres { get; set; }
 
-        public List<BookGenre<int, int>> BookGenres { get; set; }
+        public ICollection<BookGenre> BookGenres { get; set; }
 
         public ICollection<Form> Forms { get; set; }
 
-        public List<FormBook<int, int>> FormBooks { get; set; }
+        public ICollection<FormBook> FormBooks { get; set; }
     }
 }

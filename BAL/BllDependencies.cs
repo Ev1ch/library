@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 
-using BAL.Services.Abstracts;
-using BAL.Services;
-using BAL.Models;
+using BLL.Services.Abstracts;
+using BLL.Services;
+using BLL.Models;
 
-namespace BAL
+namespace BLL
 {
     public static class BllDependencies
     {

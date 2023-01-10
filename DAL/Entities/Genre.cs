@@ -8,6 +8,6 @@ namespace DAL.Entities
 
         public ICollection<Book> Books { get; set; }
 
-        public List<BookGenre<int, int>> BookGenres { get; set; }
+        public ICollection<BookGenre> BookGenres { get; set; }
     }
 }

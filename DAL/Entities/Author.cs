@@ -12,7 +12,9 @@ namespace DAL.Entities
 
         public ICollection<Book> Books { get; set; }
 
-        public List<AuthorBook<int, int>> AuthorBooks { get; set; }
+        //TODO remove
+        //Icollection 
+        public ICollection<AuthorBook> AuthorBooks { get; set; }
 
         public string FullName => FirstName + " " + LastName + " " + MiddleName;
     }
